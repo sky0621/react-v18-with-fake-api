@@ -133,6 +133,12 @@ https://redux.js.org/
 $ yarn add redux react-redux
 ```
 
+### react-hooks-form
+
+```
+$ yarn add react-hook-form
+```
+
 ## tips
 
 ### React
