@@ -16,6 +16,7 @@ import CommentDetail from './pages/comment/CommentDetail';
 import PostDetail from './pages/post/PostDetail';
 import PhotoDetail from './pages/photo/PhotoDetail';
 import TodoDetail from './pages/todo/TodoDetail';
+import AlbumAdd from './pages/album/AlbumAdd';
 
 const Router: React.FC = () => (
   <>
@@ -24,6 +25,7 @@ const Router: React.FC = () => (
       <Route path="albums">
         <Route path="" element={<AlbumList />} />
         <Route path=":id" element={<AlbumDetail />} />
+        <Route path="add" element={<AlbumAdd />} />
       </Route>
       <Route path="comments">
         <Route path="" element={<CommentList />} />
