@@ -1,4 +1,4 @@
-import { AddAlbumPayload, Album } from './store/album';
+import { AddAlbumPayload } from './store/album';
 
 declare module '*.css' {
   interface IClassNames {
@@ -8,4 +8,7 @@ declare module '*.css' {
   export = classNames;
 }
 
-export type AddAlbumFunc = (payload: AddAlbumPayload) => Promise<Album>;
+export type OnSuccessFunc = () => void;
+
+export type AddAlbumFunc = (payload: AddAlbumPayload) => void;
+export type EditAlbumFunc = (payload: EditAlbumPayload) => void;

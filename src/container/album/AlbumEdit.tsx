@@ -1,16 +1,19 @@
 import React from 'react';
+import useAlbumEdit from './AlbumEditHooks';
+import AlbumEditOrganism from '../../component/organisms/AlbumEdit';
+// eslint-disable-next-line import/extensions,import/no-unresolved
+import { OnSuccessFunc } from '../../fn';
 
 type Props = {
   id: number;
+  onSuccess: OnSuccessFunc;
 };
 
 const AlbumEditContainer: React.FC<Props> = (props) => {
-  const { id } = props;
-  console.log(id);
-  //  const { album } = useAlbumEdit(id);
+  const { id, onSuccess } = props;
+  const { album, editAlbum } = useAlbumEdit(id, onSuccess);
 
-  return <div>edit</div>;
-  //  return <AlbumEditOrganism album={album} />;
+  return <AlbumEditOrganism id={id} album={album} editAlbum={editAlbum} />;
 };
 
 export default AlbumEditContainer;

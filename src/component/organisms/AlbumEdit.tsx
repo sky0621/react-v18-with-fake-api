@@ -1,27 +1,36 @@
 import React from 'react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { TextField } from '@mui/material';
-import { AddAlbumPayload } from '../../store/album';
+import { Album, EditAlbumPayload } from '../../store/album';
 
 type Props = {
-  addAlbum: SubmitHandler<AddAlbumPayload>;
+  id: number;
+  album: Album;
+  editAlbum: SubmitHandler<EditAlbumPayload>;
 };
 
-const AlbumAddOrganism: React.FC<Props> = (props) => {
-  const { addAlbum } = props;
+const AlbumEditOrganism: React.FC<Props> = (props) => {
+  const { id, album, editAlbum } = props;
+  console.log(album);
+  const { userId } = album;
+  const { title } = album;
+
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<AddAlbumPayload>();
+  } = useForm<EditAlbumPayload>();
 
-  const onSubmit: SubmitHandler<AddAlbumPayload> = (data) => {
-    addAlbum(data);
+  const onSubmit: SubmitHandler<EditAlbumPayload> = (data) => {
+    editAlbum(data);
   };
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit(onSubmit)}>
+      <div>ID: {id}</div>
+      <div>USER ID: {userId}</div>
+      <div>TITLE: {title}</div>
       <div>
         User ID:
         <Controller
@@ -29,6 +38,7 @@ const AlbumAddOrganism: React.FC<Props> = (props) => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => <TextField {...field} />}
+          defaultValue={userId}
         />
         {errors.userId?.type === 'required' && 'User ID is required'}
       </div>
@@ -39,6 +49,7 @@ const AlbumAddOrganism: React.FC<Props> = (props) => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => <TextField {...field} />}
+          defaultValue={title}
         />
         {errors.title?.type === 'required' && 'Title is required'}
       </div>
@@ -49,4 +60,4 @@ const AlbumAddOrganism: React.FC<Props> = (props) => {
   );
 };
 
-export default AlbumAddOrganism;
+export default AlbumEditOrganism;
