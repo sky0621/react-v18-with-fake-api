@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { EditAlbumPayload, Album, initAlbum } from '../../store/album';
-// eslint-disable-next-line import/extensions,import/no-unresolved
-import { EditAlbumFunc, OnSuccessFunc } from '../../fn';
+import type { EditAlbumFunc, OnSuccessFunc } from '../../globals';
 
 const useAlbumEdit = (id: number, onSuccess: OnSuccessFunc) => {
   const [album, setAlbum] = useState<Album>(initAlbum);

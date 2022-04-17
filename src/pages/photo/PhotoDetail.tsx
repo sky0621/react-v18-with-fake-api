@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import style from './Photo.module.css';
 import PhotoDetailContainer from '../../container/photo/PhotoDetail';
 
 const PhotoDetailPage: React.FC = () => {
@@ -8,7 +7,6 @@ const PhotoDetailPage: React.FC = () => {
 
   return (
     <>
-      <div className={style.title}>PhotoDetail</div>
       <PhotoDetailContainer id={Number(id)} />
     </>
   );

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import style from './Todo.module.css';
 import TodoDetailContainer from '../../container/todo/TodoDetail';
 
 const TodoDetailPage: React.FC = () => {
@@ -8,7 +7,6 @@ const TodoDetailPage: React.FC = () => {
 
   return (
     <>
-      <div className={style.title}>TodoDetail</div>
       <TodoDetailContainer id={Number(id)} />
     </>
   );

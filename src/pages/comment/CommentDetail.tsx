@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import style from './Comment.module.css';
 import CommentDetailContainer from '../../container/comment/ComemntDetail';
 
 const CommentDetailPage: React.FC = () => {
@@ -8,7 +7,6 @@ const CommentDetailPage: React.FC = () => {
 
   return (
     <>
-      <div className={style.title}>CommentDetail</div>
       <CommentDetailContainer id={Number(id)} />
     </>
   );

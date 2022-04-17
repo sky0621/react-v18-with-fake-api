@@ -1,8 +1,7 @@
 import React from 'react';
 import useAlbumAdd from './AlbumAddHooks';
 import AlbumAddOrganism from '../../component/organisms/AlbumAdd';
-// eslint-disable-next-line import/extensions,import/no-unresolved
-import { OnSuccessFunc } from '../../fn';
+import type { OnSuccessFunc } from '../../globals';
 
 type Props = {
   onSuccess: OnSuccessFunc;

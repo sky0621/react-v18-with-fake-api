@@ -1,6 +1,5 @@
 import { AddAlbumPayload, Album } from '../../store/album';
-// eslint-disable-next-line import/extensions,import/no-unresolved
-import { AddAlbumFunc } from '../../fn';
+import type { AddAlbumFunc } from '../../globals';
 
 const useAlbumAdd = (onSuccess: () => void) => {
   const addAlbum: AddAlbumFunc = (payload: AddAlbumPayload) => {

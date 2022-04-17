@@ -1,8 +1,7 @@
 import React from 'react';
 import useAlbumEdit from './AlbumEditHooks';
 import AlbumEditOrganism from '../../component/organisms/AlbumEdit';
-// eslint-disable-next-line import/extensions,import/no-unresolved
-import { OnSuccessFunc } from '../../fn';
+import type { OnSuccessFunc } from '../../globals';
 
 type Props = {
   id: number;

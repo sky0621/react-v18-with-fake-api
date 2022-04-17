@@ -1,9 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import style from './Album.module.css';
 import AlbumAddContainer from '../../container/album/AlbumAdd';
-// eslint-disable-next-line import/extensions,import/no-unresolved
-import { OnSuccessFunc } from '../../fn';
+import type { OnSuccessFunc } from '../../globals';
 
 const AlbumAddPage: React.FC = () => {
   const navigate = useNavigate();
@@ -13,7 +11,6 @@ const AlbumAddPage: React.FC = () => {
 
   return (
     <>
-      <div className={style.title}>AlbumAdd</div>
       <AlbumAddContainer onSuccess={moveToList} />
     </>
   );

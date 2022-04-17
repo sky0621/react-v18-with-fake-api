@@ -2,7 +2,6 @@ import React from 'react';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import { Album } from '../../store/album';
-import style from './AlbumList.module.css';
 
 type Props = {
   albums: Album[];
@@ -26,7 +25,7 @@ const AlbumListOrganism: React.FC<Props> = (props) => {
       width: 70,
       renderCell: (params: GridRenderCellParams) => (
         <>
-          <div className={style.id}>
+          <div>
             <Link to={`/albums/${params.value as number}`}>{params.value}</Link>
           </div>
           <div>
