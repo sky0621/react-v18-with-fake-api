@@ -23,9 +23,9 @@ const UserDetailOrganism: React.FC<Props> = (props) => {
       <CardContent>
         <Typographies
           elements={[
-            <Id label="ID" val={user.id} linkPath="" />,
-            <Name label="UserName" val={user.username} />,
-            <Email val={user.email} />,
+            <Id key="id" label="ID" val={user.id} linkPath="" />,
+            <Name key="name" label="UserName" val={user.username} />,
+            <Email key="email" val={user.email} />,
           ]}
         />
         <Address
@@ -37,8 +37,8 @@ const UserDetailOrganism: React.FC<Props> = (props) => {
         />
         <Typographies
           elements={[
-            <Phone label="Phone" val={user.phone} />,
-            <WebSite label="WebSite" val={user.website} />,
+            <Phone key="phone" label="Phone" val={user.phone} />,
+            <WebSite key="website" label="WebSite" val={user.website} />,
           ]}
         />
         <Company

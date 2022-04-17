@@ -19,14 +19,15 @@ const CommentDetailOrganism: React.FC<Props> = (props) => {
       <CardContent>
         <Typographies
           elements={[
-            <Id label="ID" val={comment.id} linkPath="" />,
+            <Id key="id" label="ID" val={comment.id} linkPath="" />,
             <Id
+              key="postId"
               label="POST ID"
               val={comment.postId}
               linkPath={`/posts/${comment.postId}`}
             />,
-            <Email val={comment.email} />,
-            <Sentence label="Body" val={comment.body} />,
+            <Email key="email" val={comment.email} />,
+            <Sentence key="body" label="Body" val={comment.body} />,
           ]}
         />
       </CardContent>

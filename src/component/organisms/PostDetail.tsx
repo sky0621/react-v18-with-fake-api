@@ -18,13 +18,14 @@ const PostDetailOrganism: React.FC<Props> = (props) => {
       <CardContent>
         <Typographies
           elements={[
-            <Id label="ID" val={post.id} linkPath="" />,
+            <Id key="id" label="ID" val={post.id} linkPath="" />,
             <Id
+              key="userId"
               label="ユーザーID"
               val={post.userId}
               linkPath={`/users/${post.userId}`}
             />,
-            <Sentence label="Body" val={post.body} />,
+            <Sentence key="body" label="Body" val={post.body} />,
           ]}
         />
       </CardContent>

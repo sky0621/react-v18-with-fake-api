@@ -17,13 +17,16 @@ const TodoDetailOrganism: React.FC<Props> = (props) => {
       <CardContent>
         <Typographies
           elements={[
-            <Id label="ID" val={todo.id} linkPath="" />,
+            <Id key="id" label="ID" val={todo.id} linkPath="" />,
             <Id
+              key="userId"
               label="ユーザーID"
               val={todo.userId}
               linkPath={`/users/${todo.userId}`}
             />,
-            <div>完了フラグ: {todo.completed ? '(完)' : '(未完)'}</div>,
+            <div key="completed">
+              完了フラグ: {todo.completed ? '(完)' : '(未完)'}
+            </div>,
           ]}
         />
       </CardContent>

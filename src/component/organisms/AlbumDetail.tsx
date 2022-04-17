@@ -17,8 +17,9 @@ const AlbumDetailOrganism: React.FC<Props> = (props) => {
       <CardContent>
         <Typographies
           elements={[
-            <Id label="ID" val={album.id} linkPath="" />,
+            <Id key="id" label="ID" val={album.id} linkPath="" />,
             <Id
+              key="userId"
               label="ユーザーID"
               val={album.userId}
               linkPath={`/users/${album.userId}`}

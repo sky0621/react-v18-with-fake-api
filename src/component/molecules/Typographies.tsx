@@ -11,7 +11,7 @@ const TypographiesMolecule: React.FC<Props> = (props) => {
   return (
     <>
       {elements.map((e) => (
-        <Typography>{e}</Typography>
+        <Typography key={e.key}>{e}</Typography>
       ))}
     </>
   );
