@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { TextField } from '@mui/material';
 import { Album, EditAlbumPayload } from '../../store/album';
@@ -11,15 +11,18 @@ type Props = {
 
 const AlbumEditOrganism: React.FC<Props> = (props) => {
   const { id, album, editAlbum } = props;
-  console.log(album);
-  const { userId } = album;
-  const { title } = album;
 
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<EditAlbumPayload>();
+
+  useEffect(() => {
+    setValue('userId', album.userId);
+    setValue('title', album.title);
+  }, [album, setValue]);
 
   const onSubmit: SubmitHandler<EditAlbumPayload> = (data) => {
     editAlbum(data);
@@ -29,8 +32,6 @@ const AlbumEditOrganism: React.FC<Props> = (props) => {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>ID: {id}</div>
-      <div>USER ID: {userId}</div>
-      <div>TITLE: {title}</div>
       <div>
         User ID:
         <Controller
@@ -38,7 +39,6 @@ const AlbumEditOrganism: React.FC<Props> = (props) => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => <TextField {...field} />}
-          defaultValue={userId}
         />
         {errors.userId?.type === 'required' && 'User ID is required'}
       </div>
@@ -49,7 +49,6 @@ const AlbumEditOrganism: React.FC<Props> = (props) => {
           control={control}
           rules={{ required: true }}
           render={({ field }) => <TextField {...field} />}
-          defaultValue={title}
         />
         {errors.title?.type === 'required' && 'Title is required'}
       </div>
