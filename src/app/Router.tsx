@@ -1,23 +1,23 @@
 import { Routes, Route } from 'react-router-dom';
 import React from 'react';
-import HomePage from './pages/Home';
-import UserDetail from './pages/user/UserDetail';
-import UserAdd from './pages/user/UserAdd';
-import AlbumList from './pages/album/AlbumList';
-import CommentList from './pages/comment/CommentList';
-import PhotoList from './pages/photo/PhotoList';
-import PostList from './pages/post/PostList';
-import TodoList from './pages/todo/TodoList';
-import UserList from './pages/user/UserList';
-import UserEdit from './pages/user/UserEdit';
-import AlbumDetail from './pages/album/AlbumDetail';
-import NotFound from './pages/NotFound';
-import CommentDetail from './pages/comment/CommentDetail';
-import PostDetail from './pages/post/PostDetail';
-import PhotoDetail from './pages/photo/PhotoDetail';
-import TodoDetail from './pages/todo/TodoDetail';
-import AlbumAdd from './pages/album/AlbumAdd';
-import AlbumEdit from './pages/album/AlbumEdit';
+import HomePage from 'pages/Home';
+import UserDetail from 'pages/user/UserDetail';
+import UserAdd from 'pages/user/UserAdd';
+import AlbumList from 'pages/album/AlbumList';
+import CommentList from 'pages/comment/CommentList';
+import PhotoList from 'pages/photo/PhotoList';
+import PostList from 'pages/post/PostList';
+import TodoList from 'pages/todo/TodoList';
+import UserList from 'pages/user/UserList';
+import UserEdit from 'pages/user/UserEdit';
+import AlbumDetail from 'pages/album/AlbumDetail';
+import NotFound from 'pages/NotFound';
+import CommentDetail from 'pages/comment/CommentDetail';
+import PostDetail from 'pages/post/PostDetail';
+import PhotoDetail from 'pages/photo/PhotoDetail';
+import TodoDetail from 'pages/todo/TodoDetail';
+import AlbumAdd from 'pages/album/AlbumAdd';
+import AlbumEdit from 'pages/album/AlbumEdit';
 
 const Router: React.FC = () => (
   <>

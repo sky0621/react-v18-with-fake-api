@@ -1,10 +1,9 @@
 import React from 'react';
 import useAlbumAdd from './AlbumAddHooks';
 import AlbumAddOrganism from '../../component/organisms/AlbumAdd';
-import type { OnSuccessFunc } from '../../globals';
 
 type Props = {
-  onSuccess: OnSuccessFunc;
+  onSuccess: () => void;
 };
 
 const AlbumAddContainer: React.FC<Props> = (props) => {

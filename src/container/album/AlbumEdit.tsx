@@ -1,11 +1,10 @@
 import React from 'react';
 import useAlbumEdit from './AlbumEditHooks';
 import AlbumEditOrganism from '../../component/organisms/AlbumEdit';
-import type { OnSuccessFunc } from '../../globals';
 
 type Props = {
   id: number;
-  onSuccess: OnSuccessFunc;
+  onSuccess: () => void;
 };
 
 const AlbumEditContainer: React.FC<Props> = (props) => {

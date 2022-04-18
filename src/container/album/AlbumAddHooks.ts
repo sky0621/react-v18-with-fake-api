@@ -1,8 +1,7 @@
 import { AddAlbumPayload, Album } from '../../store/album';
-import type { AddAlbumFunc } from '../../globals';
 
 const useAlbumAdd = (onSuccess: () => void) => {
-  const addAlbum: AddAlbumFunc = (payload: AddAlbumPayload) => {
+  const addAlbum = (payload: AddAlbumPayload) => {
     const exec = async () => {
       try {
         const response = await fetch(

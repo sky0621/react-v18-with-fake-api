@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { EditAlbumPayload, Album, initAlbum } from '../../store/album';
-import type { EditAlbumFunc, OnSuccessFunc } from '../../globals';
 
-const useAlbumEdit = (id: number, onSuccess: OnSuccessFunc) => {
+const useAlbumEdit = (id: number, onSuccess: () => void) => {
   const [album, setAlbum] = useState<Album>(initAlbum);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ const useAlbumEdit = (id: number, onSuccess: OnSuccessFunc) => {
     void getAlbum();
   }, [id]);
 
-  const editAlbum: EditAlbumFunc = (payload: EditAlbumPayload) => {
+  const editAlbum = (payload: EditAlbumPayload) => {
     const exec = async () => {
       try {
         const response = await fetch(

@@ -1,14 +1,15 @@
-import { VFC } from 'react';
-import './App.css';
+import './index.css';
 import { Container } from '@mui/material';
+import React from 'react';
 import Router from './Router';
 import Menu from './Menu';
+import { withProviders } from './providers';
 
-const App: VFC = () => (
+const App = () => (
   <Container maxWidth="md">
     <Menu />
     <Router />
   </Container>
 );
 
-export default App;
+export default withProviders(App);
