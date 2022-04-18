@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import AlbumListOrganism from '../../component/organisms/AlbumList';
-import useAlbumList from './AlbumListHooks';
+import getAlbumList from './AlbumResource';
+import Loading from '../../component/atoms/Loading';
 
 const AlbumListContainer: React.FC = () => {
-  const { albums } = useAlbumList();
+  const albums = getAlbumList();
 
-  return <AlbumListOrganism albums={albums} />;
+  return (
+    <>
+      <Suspense fallback={<Loading message="Loading..." />}>
+        <AlbumListOrganism albums={albums} />
+      </Suspense>
+    </>
+  );
 };
 
 export default AlbumListContainer;
