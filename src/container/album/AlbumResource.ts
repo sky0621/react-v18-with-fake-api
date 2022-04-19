@@ -1,4 +1,5 @@
 import { Album } from '../../store/album';
+import apiClient from '../../shared/api';
 
 let albumsCache: Album[] | null = null;
 
@@ -7,9 +8,8 @@ const getAlbumList = () => {
     return albumsCache;
   }
 
-  const promise = fetch('https://jsonplaceholder.typicode.com/albums', {
-    method: 'GET',
-  })
+  const promise = apiClient
+    .get('albums')
     .then((response) => response.json())
     .then((albums: Album[]) => {
       albumsCache = albums;
