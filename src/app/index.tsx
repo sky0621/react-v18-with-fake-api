@@ -1,14 +1,14 @@
 import './index.css';
 import { Container } from '@mui/material';
 import React from 'react';
-import Router from './Router';
-import Menu from './Menu';
+import Routing from 'pages';
+import Menu from 'pages/Menu';
 import { withProviders } from './providers';
 
 const App = () => (
   <Container maxWidth="md">
     <Menu />
-    <Router />
+    <Routing />
   </Container>
 );
 
