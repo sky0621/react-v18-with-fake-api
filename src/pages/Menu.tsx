@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { AppBar, Tab, Tabs, Toolbar } from '@mui/material';
+import { Tab, Tabs, Toolbar } from '@mui/material';
 import { Link } from 'react-router-dom';
+import AppBar from 'shared/ui/AppBar';
 
 const Menu: React.FC = () => {
   const [index, setIndex] = useState(0);

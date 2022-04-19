@@ -1,4 +1,4 @@
-import './index.css';
+import './index.scss';
 import { Container } from '@mui/material';
 import React from 'react';
 import Routing from 'pages';
