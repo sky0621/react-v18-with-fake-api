@@ -5,6 +5,7 @@ const useTabMenu = () => {
 
   const handleChange = (event: React.SyntheticEvent, i: number) => {
     setIndex(i);
+    event.preventDefault();
   };
 
   return { index, handleChange };
