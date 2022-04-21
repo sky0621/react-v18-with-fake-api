@@ -1,8 +1,8 @@
 import './index.scss';
 import { Container } from '@mui/material';
 import React from 'react';
-import Routing from 'pages';
-import Menu from 'pages/Menu';
+import Routing from 'ui/pages';
+import Menu from 'ui/pages/Menu';
 import { withProviders } from './providers';
 
 const App = () => (
