@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@mui/material';
-import { Post } from '../../../domain/model/post';
+import { Post } from '../../domain/model/post';
 import Typographies from '../molecules/Typographies';
 import Id from '../atoms/Id';
 import Sentence from '../atoms/Sentence';

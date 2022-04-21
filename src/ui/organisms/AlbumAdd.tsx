@@ -1,7 +1,7 @@
 import React from 'react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { Box, TextField } from '@mui/material';
-import { AddAlbumPayload } from '../../../domain/model/album';
+import { AddAlbumPayload } from '../../domain/model/album';
 
 type Props = {
   addAlbum: SubmitHandler<AddAlbumPayload>;

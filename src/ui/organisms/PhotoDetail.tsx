@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@mui/material';
-import { Photo } from '../../../domain/model/photo';
+import { Photo } from '../../domain/model/photo';
 import Id from '../atoms/Id';
 import Typographies from '../molecules/Typographies';
 import CardImage from '../atoms/CardImage';

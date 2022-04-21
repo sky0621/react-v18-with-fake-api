@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { TextField } from '@mui/material';
-import { Album, EditAlbumPayload } from '../../../domain/model/album';
+import { Album, EditAlbumPayload } from '../../domain/model/album';
 
 type Props = {
   id: number;

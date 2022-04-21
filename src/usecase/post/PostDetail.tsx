@@ -1,6 +1,6 @@
 import React from 'react';
 import usePostDetail from '../../adapter/PostDetailHooks';
-import PostDetailOrganism from '../../ui/component/organisms/PostDetail';
+import PostDetailOrganism from '../../ui/organisms/PostDetail';
 
 type Props = {
   id: number;

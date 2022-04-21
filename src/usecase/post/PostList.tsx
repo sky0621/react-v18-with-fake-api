@@ -1,6 +1,6 @@
 import React from 'react';
 import usePostList from '../../adapter/PostListHooks';
-import PostListOrganism from '../../ui/component/organisms/PostList';
+import PostListOrganism from '../../ui/organisms/PostList';
 
 const PostListContainer: React.FC = () => {
   const { posts } = usePostList();

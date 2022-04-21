@@ -1,6 +1,6 @@
 import React from 'react';
-import TabMenu from 'ui/component/molecules/TabMenu/ui/TabMenu';
-import { TabAttribute } from '../component/molecules/TabMenu/model';
+import TabMenu from 'ui/molecules/TabMenu/ui/TabMenu';
+import { TabAttribute } from '../molecules/TabMenu/model';
 
 const Menu: React.FC = () => {
   const tabAttributes: TabAttribute[] = [

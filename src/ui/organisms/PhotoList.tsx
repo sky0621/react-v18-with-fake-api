@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
-import { Photo } from '../../../domain/model/photo';
+import { Photo } from '../../domain/model/photo';
 
 type Props = {
   photos: Photo[];

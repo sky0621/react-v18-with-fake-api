@@ -1,4 +1,5 @@
 import ky, { Options } from 'ky';
+import { QueryClient } from 'react-query';
 import API_URL from '../config';
 
 const defaultOptions: Options = {
@@ -11,6 +12,6 @@ const defaultOptions: Options = {
   timeout: 5000,
 };
 
-const apiClient = ky.create(defaultOptions);
+export const apiClient = ky.create(defaultOptions);
 
-export default apiClient;
+export const queryClient = new QueryClient();

@@ -1,6 +1,6 @@
 import React from 'react';
 import useAlbumEdit from '../../adapter/AlbumEditHooks';
-import AlbumEditOrganism from '../../ui/component/organisms/AlbumEdit';
+import AlbumEditOrganism from '../../ui/organisms/AlbumEdit';
 
 type Props = {
   id: number;

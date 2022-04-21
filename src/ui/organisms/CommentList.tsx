@@ -1,19 +1,19 @@
 import React from 'react';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
-import { Post } from '../../../domain/model/post';
+import { Comment } from '../../domain/model/comment';
 
 type Props = {
-  posts: Post[];
+  comments: Comment[];
 };
 
-const PostListOrganism: React.FC<Props> = (props) => {
-  const { posts } = props;
+const CommentListOrganism: React.FC<Props> = (props) => {
+  const { comments } = props;
 
   const headers: GridColDef[] = [
     {
-      field: 'userId',
-      headerName: 'User ID',
+      field: 'postId',
+      headerName: 'Post ID',
       width: 70,
       renderCell: (params: GridRenderCellParams) => (
         <Link to={`/posts/${params.value as number}`}>{params.value}</Link>
@@ -24,18 +24,19 @@ const PostListOrganism: React.FC<Props> = (props) => {
       headerName: 'ID',
       width: 70,
       renderCell: (params: GridRenderCellParams) => (
-        <Link to={`/posts/${params.value as number}`}>{params.value}</Link>
+        <Link to={`/comments/${params.value as number}`}>{params.value}</Link>
       ),
     },
-    { field: 'title', headerName: 'Title', width: 250 },
+    { field: 'name', headerName: 'Name', width: 250 },
+    { field: 'email', headerName: 'E-Mail', width: 250 },
     { field: 'body', headerName: 'Body', width: 250 },
   ];
 
   return (
     <div style={{ height: 600, width: '100%' }}>
-      <DataGrid columns={headers} rows={posts} />
+      <DataGrid columns={headers} rows={comments} />
     </div>
   );
 };
 
-export default PostListOrganism;
+export default CommentListOrganism;

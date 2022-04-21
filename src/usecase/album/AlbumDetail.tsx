@@ -1,5 +1,5 @@
 import React from 'react';
-import AlbumDetailOrganism from '../../ui/component/organisms/AlbumDetail';
+import AlbumDetailOrganism from '../../ui/organisms/AlbumDetail';
 import useAlbumDetail from '../../adapter/AlbumDetailHooks';
 
 type Props = {

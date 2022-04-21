@@ -1,31 +1,31 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import HomePage from 'ui/pages/Home';
-import UserDetail from 'ui/pages/user/UserDetail';
-import UserAdd from 'ui/pages/user/UserAdd';
-import AlbumList from 'ui/pages/album/AlbumList';
+import CreateAlbumPage from 'ui/pages/album/CreateAlbumPage';
+import ListAlbumsPage from 'ui/pages/album/ListAlbumsPage';
+import AlbumDetail from 'ui/pages/album/AlbumDetail';
+import AlbumEdit from 'ui/pages/album/AlbumEdit';
 import CommentList from 'ui/pages/comment/CommentList';
 import PhotoList from 'ui/pages/photo/PhotoList';
 import PostList from 'ui/pages/post/PostList';
 import TodoList from 'ui/pages/todo/TodoList';
 import UserList from 'ui/pages/user/UserList';
 import UserEdit from 'ui/pages/user/UserEdit';
-import AlbumDetail from 'ui/pages/album/AlbumDetail';
 import NotFound from 'ui/pages/NotFound';
 import CommentDetail from 'ui/pages/comment/CommentDetail';
 import PostDetail from 'ui/pages/post/PostDetail';
 import PhotoDetail from 'ui/pages/photo/PhotoDetail';
 import TodoDetail from 'ui/pages/todo/TodoDetail';
-import AlbumAdd from 'ui/pages/album/AlbumAdd';
-import AlbumEdit from 'ui/pages/album/AlbumEdit';
+import UserDetail from 'ui/pages/user/UserDetail';
+import UserAdd from 'ui/pages/user/UserAdd';
 
 const Routing = () => (
   <Routes>
     <Route path="/" element={<HomePage />} />
     <Route path="albums">
-      <Route path="" element={<AlbumList />} />
+      <Route path="" element={<ListAlbumsPage />} />
       <Route path=":id" element={<AlbumDetail />} />
-      <Route path="add" element={<AlbumAdd />} />
+      <Route path="add" element={<CreateAlbumPage />} />
       <Route path=":id/edit" element={<AlbumEdit />} />
     </Route>
     <Route path="comments">

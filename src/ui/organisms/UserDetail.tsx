@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@mui/material';
-import { User } from '../../../domain/model/user';
+import { User } from '../../domain/model/user';
 import Id from '../atoms/Id';
 import Typographies from '../molecules/Typographies';
 import Email from '../atoms/Email';

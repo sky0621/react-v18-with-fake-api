@@ -1,6 +1,6 @@
 import React from 'react';
 import useAlbumAdd from '../../adapter/AlbumAddHooks';
-import AlbumAddOrganism from '../../ui/component/organisms/AlbumAdd';
+import AlbumAddOrganism from '../../ui/organisms/AlbumAdd';
 
 type Props = {
   onSuccess: () => void;

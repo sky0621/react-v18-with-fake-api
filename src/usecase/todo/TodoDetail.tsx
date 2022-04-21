@@ -1,6 +1,6 @@
 import React from 'react';
 import useTodoDetail from '../../adapter/TodoDetailHooks';
-import TodoDetailOrganism from '../../ui/component/organisms/TodoDetail';
+import TodoDetailOrganism from '../../ui/organisms/TodoDetail';
 
 type Props = {
   id: number;

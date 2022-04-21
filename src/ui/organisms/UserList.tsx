@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
-import { User } from '../../../domain/model/user';
+import { User } from '../../domain/model/user';
 
 type Props = {
   users: User[];

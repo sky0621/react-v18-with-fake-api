@@ -1,10 +1,7 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-// eslint-disable-next-line import/prefer-default-export
-export const withRouter = (component: () => React.ReactNode) => () =>
-  (
-    <BrowserRouter>
-      <Suspense fallback="Loading...">{component()}</Suspense>
-    </BrowserRouter>
-  );
+const withRouter = (component: () => React.ReactNode) => () =>
+  <BrowserRouter>{component()}</BrowserRouter>;
+
+export default withRouter;

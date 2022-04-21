@@ -1,6 +1,6 @@
 import React from 'react';
 import usePhotoList from '../../adapter/PhotoListHooks';
-import PhotoListOrganism from '../../ui/component/organisms/PhotoList';
+import PhotoListOrganism from '../../ui/organisms/PhotoList';
 
 const PhotoListContainer: React.FC = () => {
   const { photos } = usePhotoList();

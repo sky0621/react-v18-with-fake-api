@@ -1,6 +1,6 @@
 import React from 'react';
 import useCommentDetail from '../../adapter/CommentDetailHooks';
-import CommentDetailOrganism from '../../ui/component/organisms/CommentDetail';
+import CommentDetailOrganism from '../../ui/organisms/CommentDetail';
 
 type Props = {
   id: number;

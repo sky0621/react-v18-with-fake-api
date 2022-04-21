@@ -1,6 +1,6 @@
 import React from 'react';
 import useUserDetail from '../../adapter/UserDetailHooks';
-import UserDetailOrganism from '../../ui/component/organisms/UserDetail';
+import UserDetailOrganism from '../../ui/organisms/UserDetail';
 
 type Props = {
   id: number;

@@ -8,14 +8,12 @@ const getAlbumList = () => {
     return albumsCache;
   }
 
-  const promise = apiClient
+  return apiClient
     .get('albums')
     .then((response) => response.json())
     .then((albums: Album[]) => {
       albumsCache = albums;
     });
-
-  throw promise;
 };
 
 export default getAlbumList;

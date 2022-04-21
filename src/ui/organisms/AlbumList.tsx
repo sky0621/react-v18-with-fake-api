@@ -1,7 +1,7 @@
 import React from 'react';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
-import { Album } from '../../../domain/model/album';
+import { Album } from '../../domain/model/album';
 
 type Props = {
   albums: Album[];

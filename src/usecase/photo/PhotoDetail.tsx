@@ -1,6 +1,6 @@
 import React from 'react';
 import usePhotoDetail from '../../adapter/PhotoDetailHooks';
-import PhotoDetailOrganism from '../../ui/component/organisms/PhotoDetail';
+import PhotoDetailOrganism from '../../ui/organisms/PhotoDetail';
 
 type Props = {
   id: number;
