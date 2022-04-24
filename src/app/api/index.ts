@@ -14,4 +14,14 @@ const defaultOptions: Options = {
 
 export const apiClient = ky.create(defaultOptions);
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+      suspense: true,
+    },
+    mutations: {
+      retry: 0,
+    },
+  },
+});
