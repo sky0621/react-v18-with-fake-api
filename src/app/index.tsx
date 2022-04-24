@@ -1,11 +1,12 @@
 import './index.scss';
 import { Container } from '@mui/material';
 import React from 'react';
-import withProviders from "./providers";
+import withProviders from './providers';
+import Menu from '../ui/pages/Menu';
 
 const App = () => (
   <Container maxWidth="md">
-      <div>initial</div>
+    <Menu />
   </Container>
 );
 

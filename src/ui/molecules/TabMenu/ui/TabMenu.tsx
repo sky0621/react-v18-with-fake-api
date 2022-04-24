@@ -21,8 +21,8 @@ const TabMenu: React.FC<Props> = (props) => {
       <AppBar position={position}>
         <Toolbar>
           <Tabs value={index} onChange={handleChange}>
-            {tabAttributes.map((ta) => (
-              <Tab label={ta.label} component={Link} to={ta.to} />
+            {tabAttributes.map((ta: TabAttribute) => (
+              <Tab key={ta.key} label={ta.label} component={Link} to={ta.to} />
             ))}
           </Tabs>
         </Toolbar>

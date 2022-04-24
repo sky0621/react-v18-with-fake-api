@@ -1,7 +1,6 @@
 # TODO
 
-React Hook Form
+React Query
 
 Recoil
 
-SWR or React Query
