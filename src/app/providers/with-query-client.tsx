@@ -1,6 +1,6 @@
 import React from 'react';
-import { queryClient } from 'app/api';
 import { QueryClientProvider } from 'react-query';
+import {queryClient} from "../api";
 
 const withQueryClient = (component: () => React.ReactNode) => (
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

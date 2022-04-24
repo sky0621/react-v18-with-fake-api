@@ -1,5 +1,6 @@
 import { compose } from 'redux';
-import { withRouter } from './with-router';
+import withRouter from "./with-router";
 
-// eslint-disable-next-line import/prefer-default-export
-export const withProviders = compose(withRouter);
+const withProviders = compose(withRouter);
+
+export default withProviders;
