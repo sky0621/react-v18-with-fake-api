@@ -1,8 +1,20 @@
-import React, { ChangeEvent, SyntheticEvent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  SyntheticEvent,
+  useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import useLogin from '../../usecase/login';
 
-const Login: React.FC = () => {
+type Props = {
+  saveToken: Dispatch<SetStateAction<string>>;
+};
+
+const Login: React.FC<Props> = (props) => {
+  const { saveToken } = props;
+
   const { handleLogin } = useLogin();
 
   const [loginId, setLoginId] = useState('');
@@ -18,7 +30,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const onSubmit = (e: SyntheticEvent) => {
     const token = handleLogin(loginId, password);
-    console.log(token);
+    saveToken(token);
     navigate('/');
     e.preventDefault();
   };
