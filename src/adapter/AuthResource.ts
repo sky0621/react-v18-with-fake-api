@@ -1,5 +1,11 @@
 import { Base64 } from 'js-base64';
 import { Auth } from '../domain/auth/entity';
+import {
+  getStorageItem,
+  removeStorageItem,
+  saveStorageItem,
+} from '../external/storage';
+import { AUTH_KEY } from '../app/config';
 
 const createAuthRepository = () => ({
   login: (loginId: string, password: string) => {
@@ -7,16 +13,16 @@ const createAuthRepository = () => ({
     const base64Id = Base64.encode(loginId);
     const base64Ps = Base64.encode(password);
     const token = `${base64Id}:${base64Ps}`;
-    localStorage.setItem(token, '1'); // MEMO: とりあえずユーザーID：1 固定
+    saveStorageItem(`${AUTH_KEY}1`, token); // MEMO: とりあえずユーザーID：1 固定
 
     return { userId: 1, token } as Auth;
   },
 
-  logout: (token: string) => {
-    localStorage.removeItem(token);
+  logout: (userId: string) => {
+    removeStorageItem(`${AUTH_KEY}${userId}`);
   },
 
-  isLogin: (token: string) => localStorage.getItem(token) === '1',
+  isLogin: (userId: string) => getStorageItem(`${AUTH_KEY}${userId}`) !== '',
 });
 
 export default createAuthRepository;

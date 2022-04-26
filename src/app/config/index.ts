@@ -6,6 +6,5 @@ const getEnvVar = (key: string) => {
   return process.env[key] || '';
 };
 
-const API_URL = getEnvVar('REACT_APP_FAKE_API_URL');
-
-export default API_URL;
+export const API_URL = getEnvVar('REACT_APP_API_URL');
+export const AUTH_KEY = getEnvVar('REACT_APP_AUTH_KEY');

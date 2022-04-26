@@ -1,16 +1,16 @@
 import { apiClient } from '../app/api';
-import { Entity } from '../domain/user/entity';
+import { User } from '../domain/user/entity';
 
-export const getUser: (id: number) => Promise<Entity> = async (id: number) => {
+export const getUser: (id: number) => Promise<User> = async (id: number) => {
   const response = await apiClient.get(`users/${id}`);
-  const user = (await response.json()) as Entity;
+  const user = (await response.json()) as User;
 
   return user;
 };
 
-export const getUsers: () => Promise<Entity[]> = async () => {
+export const getUsers: () => Promise<User[]> = async () => {
   const response = await apiClient.get('users');
-  const users = (await response.json()) as Entity[];
+  const users = (await response.json()) as User[];
 
   return users;
 };
