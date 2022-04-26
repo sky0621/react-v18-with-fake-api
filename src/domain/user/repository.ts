@@ -1,4 +1,4 @@
-import { getUser as getUserResource } from '../adapter/UserResource';
+import { getUser as getUserResource } from '../../adapter/UserResource';
 
 const getUser = async (id: number) => getUserResource(id);
 

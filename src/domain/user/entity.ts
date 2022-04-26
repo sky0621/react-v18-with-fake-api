@@ -17,7 +17,7 @@ export type Company = {
   bs: string;
 };
 
-export type User = {
+export type Entity = {
   id: number;
   name: string;
   username: string;
