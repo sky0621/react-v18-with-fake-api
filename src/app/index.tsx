@@ -1,4 +1,3 @@
-import './index.scss';
 import React, { Suspense, useState } from 'react';
 import Menu from '../ui/pages/Menu';
 import Router from '../ui/pages/Router';

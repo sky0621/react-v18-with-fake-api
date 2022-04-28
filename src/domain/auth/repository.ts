@@ -3,8 +3,8 @@ import { Auth } from './entity';
 
 export type AuthRepository = {
   login(loginId: string, password: string): Auth;
-  logout(token: string): void;
-  isLogin(token: string): boolean;
+  logout(): void;
+  isLogin(): boolean;
 };
 
 export const authRepository: AuthRepository = createAuthRepository();

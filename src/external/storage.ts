@@ -1,4 +1,5 @@
 export const saveStorageItem = (key: string, val: string) => {
+  // MEMO: Cookieの方がいいけど、プロダクトコードじゃないので。
   localStorage.setItem(key, val);
 };
 

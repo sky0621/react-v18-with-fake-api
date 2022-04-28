@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useLogin from '../../usecase/login';
+import useLogin from './LoginHooks';
 
 type Props = {
   saveToken: Dispatch<SetStateAction<string>>;
