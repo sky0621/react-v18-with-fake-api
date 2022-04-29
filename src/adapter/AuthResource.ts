@@ -6,6 +6,33 @@ import {
 } from '../external/storage';
 import { AUTH_KEY } from '../app/config';
 
+// for user1
+const token1 = '9fd0ccdc-b2c1-4a11-9dfe-119e92501aac';
+// for user2
+const token2 = '6ee15fe9-97d0-4b75-8182-44c1b49d9586';
+
+// userId と一致するトークンを保持しているか否か
+const checkToken = (userId: number) => {
+  const token = getStorageItem(AUTH_KEY);
+  if (!token) return false;
+  switch (token) {
+    case token1:
+      if (userId === 1) {
+        return true;
+      }
+      break;
+    case token2:
+      if (userId === 2) {
+        return true;
+      }
+      break;
+    default:
+      break;
+  }
+
+  return false;
+};
+
 const createAuthRepository = () => ({
   login: (loginId: string, password: string) => {
     // MEMO: 本当なら自前のAPIサーバやIDaasを使うけど、プロダクトではないので適当にユーザーIDとトークンを割り当て
@@ -16,11 +43,11 @@ const createAuthRepository = () => ({
     switch (loginId) {
       case 'user1':
         userId = 1;
-        token = '9fd0ccdc-b2c1-4a11-9dfe-119e92501aac';
+        token = token1;
         break;
       case 'user2':
         userId = 2;
-        token = '6ee15fe9-97d0-4b75-8182-44c1b49d9586';
+        token = token2;
         break;
       default:
         break;
@@ -39,11 +66,13 @@ const createAuthRepository = () => ({
     return { userId, token } as Auth;
   },
 
-  logout: () => {
-    removeStorageItem(AUTH_KEY);
+  logout: (userId: number) => {
+    if (checkToken(userId)) {
+      removeStorageItem(AUTH_KEY);
+    }
   },
 
-  isLogin: () => getStorageItem(AUTH_KEY) !== null,
+  isLogin: (userId: number) => checkToken(userId),
 });
 
 export default createAuthRepository;

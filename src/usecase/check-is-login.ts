@@ -1,8 +1,5 @@
-// import { authRepository } from '../domain/auth/repository';
+import { authRepository } from '../domain/auth/repository';
 
-const checkIsLogin = () => {
-  //
-  //  authRepository.isLogin();
-};
+const checkIsLogin = (userId: number) => authRepository.isLogin(userId);
 
 export default checkIsLogin;

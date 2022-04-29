@@ -1,39 +1,9 @@
-import React, {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  SyntheticEvent,
-  useState,
-} from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import useLogin from './LoginHooks';
 
-type Props = {
-  saveToken: Dispatch<SetStateAction<string>>;
-};
-
-const Login: React.FC<Props> = (props) => {
-  const { saveToken } = props;
-
-  const { handleLogin } = useLogin();
-
-  const [loginId, setLoginId] = useState('');
-  const [password, setPassword] = useState('');
-
-  const changeLoginId = (e: ChangeEvent<HTMLInputElement>) => {
-    setLoginId(e.target.value);
-  };
-  const changePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const navigate = useNavigate();
-  const onSubmit = (e: SyntheticEvent) => {
-    const token = handleLogin(loginId, password);
-    saveToken(token);
-    navigate('/');
-    e.preventDefault();
-  };
+const Login: React.FC = () => {
+  const { loginId, changeLoginId, password, changePassword, handleLogin } =
+    useLogin();
 
   return (
     <>
@@ -58,7 +28,12 @@ const Login: React.FC<Props> = (props) => {
           />
         </div>
         <div>
-          <input type="button" onClick={onSubmit} name="login" value="LOGIN" />
+          <input
+            type="button"
+            onClick={handleLogin}
+            name="login"
+            value="LOGIN"
+          />
         </div>
       </form>
     </>

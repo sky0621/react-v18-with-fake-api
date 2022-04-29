@@ -1,6 +1,0 @@
-# TODO
-
-React Query
-
-Recoil
-
