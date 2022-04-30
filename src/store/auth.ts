@@ -1,9 +1,9 @@
 import { atom } from 'recoil';
 import { Auth } from '../domain/auth/entity';
 
-const loginUserState = atom({
-  key: 'loginUserState',
+const loginUserAuthCacheState = atom({
+  key: 'loginUserAuthCacheState',
   default: { userId: 0, token: '' } as Auth,
 });
 
-export default loginUserState;
+export default loginUserAuthCacheState;

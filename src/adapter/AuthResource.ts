@@ -1,3 +1,4 @@
+import { Either, left, right } from 'fp-ts/Either';
 import { Auth } from '../domain/auth/entity';
 import {
   getStorageItem,
@@ -5,55 +6,61 @@ import {
   saveStorageItem,
 } from '../external/storage';
 import { AUTH_KEY } from '../app/config';
+import { createWarnLog } from '../app/log';
+import type { Alert } from '../types/alert';
 
 // for user1
 const token1 = '9fd0ccdc-b2c1-4a11-9dfe-119e92501aac';
 // for user2
 const token2 = '6ee15fe9-97d0-4b75-8182-44c1b49d9586';
 
+// MEMO: 本当なら自前のAPIサーバやIDaasを使うけど、プロダクトではないので適当にユーザーIDとトークンを割り当て
+const pick = (
+  loginId: string,
+  userId: number,
+  token: string,
+): [string, number, string] => {
+  if (loginId === 'user1' || userId === 1 || token === token1) {
+    return ['user1', 1, token1];
+  }
+  if (loginId === 'user2' || userId === 2 || token === token2) {
+    return ['user2', 2, token2];
+  }
+
+  return ['', 0, ''];
+};
+
 // userId と一致するトークンを保持しているか否か
 const checkToken = (userId: number) => {
   const token = getStorageItem(AUTH_KEY);
   if (!token) return false;
-  switch (token) {
-    case token1:
-      if (userId === 1) {
-        return true;
-      }
-      break;
-    case token2:
-      if (userId === 2) {
-        return true;
-      }
-      break;
-    default:
-      break;
-  }
+  const [loginId, rUserId, _] = pick('', 0, token);
+  console.log(loginId);
 
-  return false;
+  return rUserId === userId;
 };
 
 const createAuthRepository = () => ({
-  login: (loginId: string, password: string) => {
-    // MEMO: 本当なら自前のAPIサーバやIDaasを使うけど、プロダクトではないので適当にユーザーIDとトークンを割り当て
-    // password は何でも通す
-    console.log(password);
-    let userId = 0;
-    let token = '';
-    switch (loginId) {
-      case 'user1':
-        userId = 1;
-        token = token1;
-        break;
-      case 'user2':
-        userId = 2;
-        token = token2;
-        break;
-      default:
-        break;
+  login: (loginId: string, password: string): Either<Alert, Auth> => {
+    if (!loginId || !password) {
+      return left(
+        createWarnLog('adapter/AuthResource.ts#login', 'Unknown', {
+          kind: 'Required',
+          message: 'LOGIN_ID_IS_NONE_OR_PASSWORD_IS_NONE',
+        }),
+      );
     }
+
+    // password は何でも通す
+
+    const [_, userId, token] = pick(loginId, 0, '');
     if (userId === 0) {
-      throw new Error('user is not found');
+      return left(
+        createWarnLog('adapter/AuthResource.ts#login', 'Unknown', {
+          kind: 'NotFound',
+          message: 'USER_IS_NONE',
+        }),
+      );
     }
 
     const already = getStorageItem(AUTH_KEY);
@@ -63,7 +70,7 @@ const createAuthRepository = () => ({
 
     saveStorageItem(AUTH_KEY, token);
 
-    return { userId, token } as Auth;
+    return right({ userId, token });
   },
 
   logout: (userId: number) => {
@@ -73,6 +80,16 @@ const createAuthRepository = () => ({
   },
 
   isLogin: (userId: number) => checkToken(userId),
+
+  getUserId: () => {
+    const token = getStorageItem(AUTH_KEY);
+    if (!token) return null;
+    const [loginId, userId, _] = pick('', 0, token);
+    console.log(loginId);
+    if (userId === 0) return null;
+
+    return userId;
+  },
 });
 
 export default createAuthRepository;

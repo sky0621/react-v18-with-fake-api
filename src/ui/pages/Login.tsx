@@ -1,9 +1,10 @@
 import React from 'react';
-import useLogin from './LoginHooks';
+import { useLoginForm, useLoginSubmit } from './LoginHooks';
+import BriefNotification from '../organisms/BriefNotification/ui/BriefNotification';
 
 const Login: React.FC = () => {
-  const { loginId, changeLoginId, password, changePassword, handleLogin } =
-    useLogin();
+  const { loginId, changeLoginId, password, changePassword } = useLoginForm();
+  const { handleLogin, alert } = useLoginSubmit(loginId, password);
 
   return (
     <>
@@ -36,6 +37,7 @@ const Login: React.FC = () => {
           />
         </div>
       </form>
+      {alert != null && <BriefNotification log={alert} />}
     </>
   );
 };
