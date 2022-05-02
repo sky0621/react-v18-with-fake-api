@@ -7,14 +7,14 @@ import getUserId from '../../usecase/get-user-id';
 import loginUserAuthCacheState from '../../store/auth';
 
 const useAuth = () => {
-  // on memory cache から（ログイン時にセットした）ユーザーID（及びセッター）を取得
+  // オンメモリキャッシュから（ログイン時にセットした）ユーザーID（及びセッター）を取得
   const [loginUserAuthCache, setLoginUserAuthCache] = useRecoilState<Auth>(
     loginUserAuthCacheState,
   );
 
+  // オンメモリキャッシュにユーザIDがない場合はローカルストレージから取得してキャッシュに再セット
   useEffect(() => {
     if (!loginUserAuthCache.userId) {
-      // on memory cache にない場合は off memory store から取得して on memory cache にセットし直す。
       const userId = getUserId();
       if (userId !== null) {
         setLoginUserAuthCache(
@@ -27,8 +27,8 @@ const useAuth = () => {
   const [showChildren, setShowChildren] = useState(false);
   const navigate = useNavigate();
 
+  // オンメモリキャッシュのユーザIDを使ってログイン済みチェック → 配下の要素を表示
   useEffect(() => {
-    // ログイン済みかチェック
     if (checkIsLogin(loginUserAuthCache.userId)) {
       // Authテンプレート配下の要素を表示してOK
       setShowChildren(true);
