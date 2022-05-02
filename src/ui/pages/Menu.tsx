@@ -5,12 +5,9 @@ import { TabAttribute } from '../organisms/TabMenu/model';
 const Menu: React.FC = () => {
   const tabAttributes: TabAttribute[] = [
     { key: 'home', label: 'Home', to: '/' },
-    //    { label: 'Album', to: '/albums' },
-    //    { label: 'Comment', to: '/comments' },
-    //    { label: 'Photo', to: '/photos' },
-    //    { label: 'Post', to: '/posts' },
-    //    { label: 'Todo', to: '/todos' },
-    //    { label: 'User', to: '/users' },
+    { key: 'album', label: 'Album', to: '/albums' },
+    { key: 'post', label: 'Post', to: '/posts' },
+    { key: 'todo', label: 'Todo', to: '/todos' },
   ];
 
   return <TabMenu position="static" tabAttributes={tabAttributes} />;
