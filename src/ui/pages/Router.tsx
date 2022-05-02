@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from './NotFound';
 import HomePage from './Home';
-import Login from './Login';
+import Login from './Login/ui/Login';
 import AuthTemplate from '../templates/Auth';
 
 const Router = () => (

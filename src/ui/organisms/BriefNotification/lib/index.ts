@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import type { Log } from '../../../../types/log';
 import {
   convertMessage,
@@ -12,6 +12,10 @@ const useBriefNotification = (log: Log) => {
   const message = convertMessage(what.message);
 
   const [open, setOpen] = useState(true);
+
+  useEffect(() => {
+    setOpen(true);
+  }, [log]);
 
   const handleClose = (e: Event | SyntheticEvent) => {
     if (e) e.preventDefault();
