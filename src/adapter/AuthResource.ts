@@ -30,12 +30,17 @@ const pick = (
   return ['', 0, ''];
 };
 
+const pickLoginIdAndUserIdByToken = (t: string): [string, number] => {
+  const [loginId, userId, _] = pick('', 0, t);
+
+  return [loginId, userId];
+};
+
 // userId と一致するトークンを保持しているか否か
 const checkToken = (userId: number) => {
   const token = getStorageItem(AUTH_KEY);
   if (!token) return false;
-  const [loginId, rUserId, _] = pick('', 0, token);
-  console.log(loginId);
+  const [_, rUserId] = pickLoginIdAndUserIdByToken(token);
 
   return rUserId === userId;
 };
@@ -84,8 +89,7 @@ const createAuthRepository = () => ({
   getUserId: () => {
     const token = getStorageItem(AUTH_KEY);
     if (!token) return null;
-    const [loginId, userId, _] = pick('', 0, token);
-    console.log(loginId);
+    const [_, userId] = pickLoginIdAndUserIdByToken(token);
     if (userId === 0) return null;
 
     return userId;
