@@ -4,6 +4,7 @@ import NotFound from './NotFound';
 import HomePage from './Home';
 import Login from './Login/ui/Login';
 import AuthTemplate from '../templates/Auth';
+import Me from './Me/ui/Me';
 
 const Router = () => (
   <Routes>
@@ -13,6 +14,14 @@ const Router = () => (
       element={
         <AuthTemplate>
           <HomePage />
+        </AuthTemplate>
+      }
+    />
+    <Route
+      path="/me"
+      element={
+        <AuthTemplate>
+          <Me />
         </AuthTemplate>
       }
     />

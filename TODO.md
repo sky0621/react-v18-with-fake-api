@@ -1,6 +1,5 @@
 # TODO
 
-- React Hook Form
 - Dial Action にログインユーザ情報表示
 - Home に Recent Posts (3件) を表示
 - Home に Uncompleted Todo を表示

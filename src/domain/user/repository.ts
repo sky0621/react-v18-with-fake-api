@@ -1,5 +1,8 @@
-import { getUser as getUserResource } from '../../adapter/UserResource';
+import { User } from './entity';
+import createUserRepository from '../../adapter/UserResource';
 
-const getUser = async (id: number) => getUserResource(id);
+export type UserRepository = {
+  getUser(id: number): Promise<User>;
+};
 
-export default getUser;
+export const userRepository: UserRepository = createUserRepository();
