@@ -7,6 +7,7 @@ import type { Alert } from '../../types/alert';
 import { Auth } from '../../domain/auth/entity';
 import checkIsLogin from '../../usecase/check-is-login';
 import loginUserAuthCacheState from '../../store/auth';
+import getUserId from '../../usecase/get-user-id';
 
 // TODO: react-hook-form を使う！
 export const useLoginForm = () => {
@@ -40,6 +41,18 @@ export const useLoginSubmit = (loginId: string, password: string) => {
   );
 
   useEffect(() => {
+    if (!loginUserAuthCache.userId) {
+      // on memory cache にない場合は off memory store から取得して on memory cache にセットし直す。
+      const userId = getUserId();
+      if (userId !== null) {
+        setLoginUserAuthCache(
+          (prev) => ({ userId: userId as unknown, token: prev.token } as Auth),
+        );
+      }
+    }
+  }, [loginUserAuthCache, setLoginUserAuthCache]);
+
+  useEffect(() => {
     if (loginUserAuthCache.userId) {
       if (checkIsLogin(loginUserAuthCache.userId)) {
         navigate('/');
@@ -47,6 +60,9 @@ export const useLoginSubmit = (loginId: string, password: string) => {
     }
   }, [loginUserAuthCache, setLoginUserAuthCache, navigate]);
 
+  /*
+   * ユーザー通知アラート
+   */
   const [alert, setAlert] = useState(null as Alert | null);
 
   /*
