@@ -19,8 +19,8 @@ export const convertSeverity = (
 
 export const convertMessage = (message: string): string => {
   switch (message) {
-    case 'LOGIN_ID_IS_NONE_OR_PASSWORD_IS_NONE':
-      return 'ログインID及びパスワードは必須です。';
+    case 'EMAIL_IS_NONE_OR_PASSWORD_IS_NONE':
+      return 'メールアドレス及びパスワードは必須です。';
       break;
     case 'USER_IS_NONE':
       return 'ユーザーが存在しません。';

@@ -30,7 +30,7 @@ const pick = (
   return ['', 0, ''];
 };
 
-const pickLoginIdAndUserIdByToken = (t: string): [string, number] => {
+const pickSignInIdAndUserIdByToken = (t: string): [string, number] => {
   const [email, userId, _] = pick('', 0, t);
 
   return [email, userId];
@@ -40,19 +40,19 @@ const pickLoginIdAndUserIdByToken = (t: string): [string, number] => {
 const checkToken = (userId: number) => {
   const token = getStorageItem(AUTH_KEY);
   if (!token) return false;
-  const [_, rUserId] = pickLoginIdAndUserIdByToken(token);
+  const [_, rUserId] = pickSignInIdAndUserIdByToken(token);
 
   return rUserId === userId;
 };
 
 const createAuthRepository = () => ({
-  login: (email: string, password: string): Either<Alert, Auth> => {
-    console.log(`[adapter/AuthRepository] login(${email}) called`);
+  signIn: (email: string, password: string): Either<Alert, Auth> => {
+    console.log(`[adapter/AuthRepository] signIn(${email}) called`);
     if (!email || !password) {
       return left(
-        createWarnLog('adapter/AuthResource.ts#login', 'Unknown', {
+        createWarnLog('adapter/AuthResource.ts#signIn', 'Unknown', {
           kind: 'Required',
-          message: 'LOGIN_ID_IS_NONE_OR_PASSWORD_IS_NONE',
+          message: 'EMAIL_IS_NONE_OR_PASSWORD_IS_NONE',
         }),
       );
     }
@@ -62,7 +62,7 @@ const createAuthRepository = () => ({
     const [_, userId, token] = pick(email, 0, '');
     if (userId === 0) {
       return left(
-        createWarnLog('adapter/AuthResource.ts#login', 'Unknown', {
+        createWarnLog('adapter/AuthResource.ts#signIn', 'Unknown', {
           kind: 'NotFound',
           message: 'USER_IS_NONE',
         }),
@@ -79,19 +79,19 @@ const createAuthRepository = () => ({
     return right({ userId, token });
   },
 
-  logout: (userId: number) => {
-    console.log(`[adapter/AuthRepository] logout(${userId}) called`);
+  signOut: (userId: number) => {
+    console.log(`[adapter/AuthRepository] signOut(${userId}) called`);
     if (checkToken(userId)) {
       removeStorageItem(AUTH_KEY);
     }
   },
 
-  isLogin: (userId: number) => checkToken(userId),
+  isSignIn: (userId: number) => checkToken(userId),
 
   getUserId: () => {
     const token = getStorageItem(AUTH_KEY);
     if (!token) return null;
-    const [_, userId] = pickLoginIdAndUserIdByToken(token);
+    const [_, userId] = pickSignInIdAndUserIdByToken(token);
     if (userId === 0) return null;
 
     return userId;

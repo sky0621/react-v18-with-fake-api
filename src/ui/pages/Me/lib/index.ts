@@ -4,7 +4,7 @@ import { BaseSyntheticEvent, useState } from 'react';
 import { UserInput } from '../model';
 import useShowMyInfo from '../../../../usecase/show-my-info';
 import { Auth } from '../../../../domain/auth/entity';
-import loginUserAuthCacheState from '../../../../store/auth';
+import signInUserAuthCacheState from '../../../../store/auth';
 import type { Alert } from '../../../../types/alert';
 
 /*
@@ -28,10 +28,10 @@ export const useMeForm = () => {
  * ユーザー情報取得に関するカスタムフック
  */
 export const useMe = () => {
-  // オンメモリキャッシュから（ログイン時にセットした）ユーザーIDを取得
-  const loginUserAuthCache = useRecoilValue<Auth>(loginUserAuthCacheState);
+  // オンメモリキャッシュから（サインイン時にセットした）ユーザーIDを取得
+  const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
 
-  const { user } = useShowMyInfo(Number(loginUserAuthCache.userId));
+  const { user } = useShowMyInfo(Number(signInUserAuthCache.userId));
 
   return {
     user,
@@ -54,7 +54,6 @@ export const useEditMeSubmit = () => {
     event?.preventDefault();
 
     // FIXME: ユーザー編集ユースケースをコール！
-    //    const eAuth = login(data.loginId, data.password);
 
     //    if (isLeft(eAuth)) {
     //      setAlert(eAuth.left);

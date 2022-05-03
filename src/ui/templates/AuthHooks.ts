@@ -1,35 +1,35 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import checkIsLogin from '../../usecase/check-is-login';
 import { Auth } from '../../domain/auth/entity';
 import getUserId from '../../usecase/get-user-id';
-import loginUserAuthCacheState from '../../store/auth';
+import signInUserAuthCacheState from '../../store/auth';
+import checkIsSignIn from '../../usecase/check-is-sign-in';
 
 const useAuth = () => {
-  // オンメモリキャッシュから（ログイン時にセットした）ユーザーID（及びセッター）を取得
-  const [loginUserAuthCache, setLoginUserAuthCache] = useRecoilState<Auth>(
-    loginUserAuthCacheState,
+  // オンメモリキャッシュから（サインイン時にセットした）ユーザーID（及びセッター）を取得
+  const [signInUserAuthCache, setSignInUserAuthCache] = useRecoilState<Auth>(
+    signInUserAuthCacheState,
   );
 
   // オンメモリキャッシュにユーザIDがない場合はローカルストレージから取得してキャッシュに再セット
   useEffect(() => {
-    if (!loginUserAuthCache.userId) {
+    if (!signInUserAuthCache.userId) {
       const userId = getUserId();
       if (userId !== null) {
-        setLoginUserAuthCache(
+        setSignInUserAuthCache(
           (prev) => ({ userId: userId as unknown, token: prev.token } as Auth),
         );
       }
     }
-  }, [loginUserAuthCache, setLoginUserAuthCache]);
+  }, [signInUserAuthCache, setSignInUserAuthCache]);
 
   const [showChildren, setShowChildren] = useState(false);
   const navigate = useNavigate();
 
   // オンメモリキャッシュのユーザIDを使って認証済みチェック → 配下の要素を表示
   useEffect(() => {
-    if (checkIsLogin(loginUserAuthCache.userId)) {
+    if (checkIsSignIn(signInUserAuthCache.userId)) {
       // Authテンプレート配下の要素を表示してOK
       setShowChildren(true);
     } else {
@@ -37,7 +37,7 @@ const useAuth = () => {
 
       navigate('/sign-in');
     }
-  }, [loginUserAuthCache, navigate]);
+  }, [signInUserAuthCache, navigate]);
 
   return {
     showChildren,

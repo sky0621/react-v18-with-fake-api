@@ -11,11 +11,11 @@ import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Controller } from 'react-hook-form';
 import BriefNotification from '../../../organisms/BriefNotification/ui/BriefNotification';
-import { useSignInForm, useLoginSubmit } from '../lib';
+import { useSignInForm, useSignInSubmit } from '../lib';
 
 const SignIn: React.FC = () => {
   const { handleSubmit, control, errors } = useSignInForm();
-  const { handleLogin, alert } = useLoginSubmit();
+  const { handleSignIn, alert } = useSignInSubmit();
 
   return (
     <>
@@ -36,7 +36,7 @@ const SignIn: React.FC = () => {
             Sign in
           </Typography>
           {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
-          <form onSubmit={handleSubmit(handleLogin)}>
+          <form onSubmit={handleSubmit(handleSignIn)}>
             <Controller
               name="email"
               control={control}

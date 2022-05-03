@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { Action } from '../model';
 import { Auth } from '../../../../domain/auth/entity';
-import loginUserAuthCacheState from '../../../../store/auth';
-import logout from '../../../../usecase/logout';
+import signInUserAuthCacheState from '../../../../store/auth';
+import signOut from '../../../../usecase/sign-out';
 
 const useDialActions = () => {
   const navigate = useNavigate();
-  // オンメモリキャッシュから（ログイン時にセットした）ユーザーIDを取得
-  const loginUserAuthCache = useRecoilValue<Auth>(loginUserAuthCacheState);
+  // オンメモリキャッシュから（サインイン時にセットした）ユーザーIDを取得
+  const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
 
   const actions: Action[] = [
     {
@@ -22,11 +22,11 @@ const useDialActions = () => {
       },
     },
     {
-      key: 'logout',
-      label: 'Logout',
+      key: 'signOut',
+      label: 'Sign Out',
       icon: ExitToAppIcon,
       clickAction: () => {
-        logout(loginUserAuthCache.userId);
+        signOut(signInUserAuthCache.userId);
         navigate('/sign-in');
       },
     },
