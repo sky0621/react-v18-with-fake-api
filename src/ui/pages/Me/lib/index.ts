@@ -1,11 +1,12 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { BaseSyntheticEvent, useState } from 'react';
+import { useQuery } from 'react-query';
 import { UserInput } from '../model';
-import useShowMyInfo from '../../../../usecase/show-my-info';
 import { Auth } from '../../../../domain/auth/entity';
 import signInUserAuthCacheState from '../../../../store/auth';
 import type { Alert } from '../../../../types/alert';
+import showMyInfo from '../../../../usecase/show-my-info';
 
 /*
  * ユーザー情報フォームに関するカスタムフック
@@ -30,8 +31,11 @@ export const useMeForm = () => {
 export const useMe = () => {
   // オンメモリキャッシュから（サインイン時にセットした）ユーザーIDを取得
   const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
+  const { userId } = signInUserAuthCache;
 
-  const { user } = useShowMyInfo(Number(signInUserAuthCache.userId));
+  const { data: user } = useQuery([userId, 'user'], () => showMyInfo(userId), {
+    enabled: !!userId,
+  });
 
   return {
     user,
