@@ -4,7 +4,7 @@ import { Auth } from './entity';
 import type { Alert } from '../../types/alert';
 
 export type AuthRepository = {
-  login(loginId: string, password: string): Either<Alert, Auth>;
+  login(email: string, password: string): Either<Alert, Auth>;
   logout(userId: number): void;
   isLogin(userId: number): boolean;
   getUserId(): number | null;

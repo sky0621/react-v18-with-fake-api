@@ -9,21 +9,21 @@ import { AUTH_KEY } from '../app/config';
 import { createWarnLog } from '../app/log';
 import type { Alert } from '../types/alert';
 
-// for user1
+// for user1@example.com
 const token1 = '9fd0ccdc-b2c1-4a11-9dfe-119e92501aac';
-// for user2
+// for user2@example.com
 const token2 = '6ee15fe9-97d0-4b75-8182-44c1b49d9586';
 
 // MEMO: 本当なら自前のAPIサーバやIDaasを使うけど、プロダクトではないので適当にユーザーIDとトークンを割り当て
 const pick = (
-  loginId: string,
+  email: string,
   userId: number,
   token: string,
 ): [string, number, string] => {
-  if (loginId === 'user1' || userId === 1 || token === token1) {
+  if (email === 'user1@example.com' || userId === 1 || token === token1) {
     return ['user1', 1, token1];
   }
-  if (loginId === 'user2' || userId === 2 || token === token2) {
+  if (email === 'user2@example.com' || userId === 2 || token === token2) {
     return ['user2', 2, token2];
   }
 
@@ -31,9 +31,9 @@ const pick = (
 };
 
 const pickLoginIdAndUserIdByToken = (t: string): [string, number] => {
-  const [loginId, userId, _] = pick('', 0, t);
+  const [email, userId, _] = pick('', 0, t);
 
-  return [loginId, userId];
+  return [email, userId];
 };
 
 // userId と一致するトークンを保持しているか否か
@@ -46,9 +46,9 @@ const checkToken = (userId: number) => {
 };
 
 const createAuthRepository = () => ({
-  login: (loginId: string, password: string): Either<Alert, Auth> => {
-    console.log(`[adapter/AuthRepository] login(${loginId}) called`);
-    if (!loginId || !password) {
+  login: (email: string, password: string): Either<Alert, Auth> => {
+    console.log(`[adapter/AuthRepository] login(${email}) called`);
+    if (!email || !password) {
       return left(
         createWarnLog('adapter/AuthResource.ts#login', 'Unknown', {
           kind: 'Required',
@@ -59,7 +59,7 @@ const createAuthRepository = () => ({
 
     // password は何でも通す
 
-    const [_, userId, token] = pick(loginId, 0, '');
+    const [_, userId, token] = pick(email, 0, '');
     if (userId === 0) {
       return left(
         createWarnLog('adapter/AuthResource.ts#login', 'Unknown', {
