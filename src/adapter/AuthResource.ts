@@ -47,6 +47,7 @@ const checkToken = (userId: number) => {
 
 const createAuthRepository = () => ({
   login: (loginId: string, password: string): Either<Alert, Auth> => {
+    console.log(`[adapter/AuthRepository] login(${loginId}) called`);
     if (!loginId || !password) {
       return left(
         createWarnLog('adapter/AuthResource.ts#login', 'Unknown', {
@@ -79,6 +80,7 @@ const createAuthRepository = () => ({
   },
 
   logout: (userId: number) => {
+    console.log(`[adapter/AuthRepository] logout(${userId}) called`);
     if (checkToken(userId)) {
       removeStorageItem(AUTH_KEY);
     }

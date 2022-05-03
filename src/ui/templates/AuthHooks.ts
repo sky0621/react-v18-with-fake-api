@@ -27,7 +27,7 @@ const useAuth = () => {
   const [showChildren, setShowChildren] = useState(false);
   const navigate = useNavigate();
 
-  // オンメモリキャッシュのユーザIDを使ってログイン済みチェック → 配下の要素を表示
+  // オンメモリキャッシュのユーザIDを使って認証済みチェック → 配下の要素を表示
   useEffect(() => {
     if (checkIsLogin(loginUserAuthCache.userId)) {
       // Authテンプレート配下の要素を表示してOK
@@ -35,8 +35,7 @@ const useAuth = () => {
     } else {
       setShowChildren(false);
 
-      // 未ログインならログイン画面へ
-      navigate('/login');
+      navigate('/sign-in');
     }
   }, [loginUserAuthCache, navigate]);
 

@@ -27,7 +27,7 @@ const useDialActions = () => {
       icon: ExitToAppIcon,
       clickAction: () => {
         logout(loginUserAuthCache.userId);
-        navigate('/login');
+        navigate('/sign-in');
       },
     },
   ];

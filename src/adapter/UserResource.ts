@@ -3,6 +3,7 @@ import { User } from '../domain/user/entity';
 
 const createUserRepository = () => ({
   getUser: async (id: number): Promise<User> => {
+    console.log(`[adapter/UserRepository] getUser(${id}) called`);
     const response = await apiClient.get(`users/${id}`);
     const user = (await response.json()) as User;
 
@@ -10,6 +11,7 @@ const createUserRepository = () => ({
   },
 
   getUsers: async (): Promise<User[]> => {
+    console.log('[adapter/UserRepository] getUsers called');
     const response = await apiClient.get('users');
     const users = (await response.json()) as User[];
 

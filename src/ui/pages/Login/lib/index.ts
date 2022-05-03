@@ -71,7 +71,7 @@ export const useLoginSubmit = () => {
     event?.preventDefault();
 
     // ログイン処理（成功ならローカルストレージにトークンが書き込まれる）
-    const eAuth = login(data.loginId, data.password);
+    const eAuth = login(data.email, data.password);
 
     if (isLeft(eAuth)) {
       setAlert(eAuth.left);

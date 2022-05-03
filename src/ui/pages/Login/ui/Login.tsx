@@ -38,23 +38,25 @@ const Login: React.FC = () => {
           {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
           <form onSubmit={handleSubmit(handleLogin)}>
             <Controller
-              name="loginId"
+              name="email"
               control={control}
               defaultValue=""
               rules={{ required: true }}
               render={({ field }) => (
                 <TextField
-                  id="loginId"
+                  id="email"
                   type="text"
-                  label="Login ID"
+                  label="Email Address"
                   margin="normal"
                   required
                   fullWidth
+                  autoComplete="email"
+                  autoFocus
                   {...field}
                 />
               )}
             />
-            {errors.loginId && <div>Login ID is required</div>}
+            {errors.email && <div>Email Address is required</div>}
             <Controller
               name="password"
               control={control}
