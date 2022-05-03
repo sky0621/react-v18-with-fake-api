@@ -2,13 +2,13 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import NotFound from './NotFound';
 import HomePage from './Home';
-import Login from './Login/ui/Login';
 import AuthTemplate from '../templates/Auth';
 import Me from './Me/ui/Me';
+import SignIn from './SignIn/ui/SignIn';
 
 const Router = () => (
   <Routes>
-    <Route path="/sign-in" element={<Login />} />
+    <Route path="/sign-in" element={<SignIn />} />
     <Route
       path="/"
       element={

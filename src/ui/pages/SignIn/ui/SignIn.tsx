@@ -11,10 +11,10 @@ import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Controller } from 'react-hook-form';
 import BriefNotification from '../../../organisms/BriefNotification/ui/BriefNotification';
-import { useLoginForm, useLoginSubmit } from '../lib';
+import { useSignInForm, useLoginSubmit } from '../lib';
 
-const Login: React.FC = () => {
-  const { handleSubmit, control, errors } = useLoginForm();
+const SignIn: React.FC = () => {
+  const { handleSubmit, control, errors } = useSignInForm();
   const { handleLogin, alert } = useLoginSubmit();
 
   return (
@@ -92,4 +92,4 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+export default SignIn;
