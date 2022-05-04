@@ -8,6 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import { Controller } from 'react-hook-form';
 import { useEditMeSubmit, useMe, useMeForm } from '../lib';
+import separateZip from '../../../../domain/user/service';
 
 const Me: React.FC = () => {
   const { handleSubmit, control, errors } = useMeForm();
@@ -28,8 +29,10 @@ const Me: React.FC = () => {
         </Typography>
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form onSubmit={handleSubmit(handleEditMe)}>
+          {/* Basic */}
           <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
             <Grid container spacing={3}>
+              {/* Name */}
               <Grid item xs={12} sm={6}>
                 <Controller
                   name="name"
@@ -51,6 +54,7 @@ const Me: React.FC = () => {
                 />
                 {errors.name && <div>Name is required</div>}
               </Grid>
+              {/* User Name */}
               <Grid item xs={12} sm={6}>
                 <Controller
                   name="username"
@@ -72,6 +76,7 @@ const Me: React.FC = () => {
                 />
                 {errors.username && <div>User Name is required</div>}
               </Grid>
+              {/* Email Address */}
               <Grid item xs={12} sm={6}>
                 <Controller
                   name="email"
@@ -93,10 +98,54 @@ const Me: React.FC = () => {
                 />
                 {errors.email && <div>Email Address is required</div>}
               </Grid>
+              {/* Phone */}
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="phone"
+                  control={control}
+                  defaultValue={user?.phone}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <TextField
+                      id="phone"
+                      type="tel"
+                      label="Phone"
+                      required
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
+                />
+                {errors.phone && <div>Phone is required</div>}
+              </Grid>
+              {/* Web Site */}
+              <Grid item xs={12} sm={12}>
+                <Controller
+                  name="website"
+                  control={control}
+                  defaultValue={user?.website}
+                  rules={{ required: true }}
+                  render={({ field }) => (
+                    <TextField
+                      id="website"
+                      type="text"
+                      label="Web Site"
+                      required
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
+                />
+                {errors.website && <div>Web Site is required</div>}
+              </Grid>
             </Grid>
           </Paper>
+          {/* Address */}
           <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
             <Grid container spacing={3}>
+              {/* Street */}
               <Grid item xs={12} sm={6}>
                 <Controller
                   name="address.street"
@@ -105,7 +154,7 @@ const Me: React.FC = () => {
                   render={({ field }) => (
                     <TextField
                       id="street"
-                      type="street"
+                      type="text"
                       label="Street"
                       fullWidth
                       variant="standard"
@@ -114,6 +163,7 @@ const Me: React.FC = () => {
                   )}
                 />
               </Grid>
+              {/* Suite */}
               <Grid item xs={12} sm={6}>
                 <Controller
                   name="address.suite"
@@ -122,7 +172,7 @@ const Me: React.FC = () => {
                   render={({ field }) => (
                     <TextField
                       id="suite"
-                      type="suite"
+                      type="text"
                       label="Suite"
                       fullWidth
                       variant="standard"
@@ -131,102 +181,105 @@ const Me: React.FC = () => {
                   )}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="address2"
-                  name="address2"
-                  label="Address line 2"
-                  fullWidth
-                  autoComplete="shipping address-line2"
-                  variant="standard"
+              {/* City */}
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="address.city"
+                  control={control}
+                  defaultValue={user?.address?.city}
+                  render={({ field }) => (
+                    <TextField
+                      id="city"
+                      type="text"
+                      label="City"
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="city"
-                  name="city"
-                  label="City"
-                  fullWidth
-                  autoComplete="shipping address-level2"
-                  variant="standard"
+              {/* Zip Code first */}
+              <Grid item xs={12} sm={2}>
+                <Controller
+                  name="address.zipcode.first"
+                  control={control}
+                  defaultValue={separateZip(user?.address?.zipcode)[0]}
+                  render={({ field }) => (
+                    <TextField
+                      id="zipcode1"
+                      type="text"
+                      label="Zip Code first"
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="state"
-                  name="state"
-                  label="State/Province/Region"
-                  fullWidth
-                  variant="standard"
+              <Grid item xs={12} sm={1}>
+                -
+              </Grid>
+              <Grid item xs={12} sm={2}>
+                <Controller
+                  name="address.zipcode.second"
+                  control={control}
+                  defaultValue={separateZip(user?.address?.zipcode)[1]}
+                  render={({ field }) => (
+                    <TextField
+                      id="zipcode2"
+                      type="text"
+                      label="Zip Code second"
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
                 />
               </Grid>
+              {/* Geo(Lat) */}
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="zip"
-                  name="zip"
-                  label="Zip / Postal code"
-                  fullWidth
-                  autoComplete="shipping postal-code"
-                  variant="standard"
+                <Controller
+                  name="address.geo.lat"
+                  control={control}
+                  defaultValue={user?.address?.geo?.lat}
+                  render={({ field }) => (
+                    <TextField
+                      id="lat"
+                      type="number"
+                      label="Geo(Lat)"
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
                 />
               </Grid>
+              {/* Geo(Lng) */}
               <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="country"
-                  name="country"
-                  label="Country"
-                  fullWidth
-                  autoComplete="shipping country"
-                  variant="standard"
+                <Controller
+                  name="address.geo.lng"
+                  control={control}
+                  defaultValue={user?.address?.geo?.lng}
+                  render={({ field }) => (
+                    <TextField
+                      id="lng"
+                      type="number"
+                      label="Geo(Lng)"
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
                 />
               </Grid>
             </Grid>
           </Paper>
+          {/* Company */}
+          <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
+            <Grid container spacing={3} />
+          </Paper>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="cardName"
-                label="Name on card"
-                fullWidth
-                autoComplete="cc-name"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="cardNumber"
-                label="Card number"
-                fullWidth
-                autoComplete="cc-number"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="expDate"
-                label="Expiry date"
-                fullWidth
-                autoComplete="cc-exp"
-                variant="standard"
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <TextField
-                required
-                id="cvv"
-                label="CVV"
-                helperText="Last three digits on signature strip"
-                fullWidth
-                autoComplete="cc-csc"
-                variant="standard"
-              />
-            </Grid>
             <Grid item xs={12}>
               <FormControlLabel
                 control={

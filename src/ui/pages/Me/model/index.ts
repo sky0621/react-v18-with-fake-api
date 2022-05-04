@@ -1,13 +1,18 @@
 export type GeoInput = {
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
+};
+
+export type ZipInput = {
+  first: number;
+  second: number;
 };
 
 export type AddressInput = {
   street: string;
   suite: string;
   city: string;
-  zipcode: string;
+  zipcode: ZipInput;
   geo: GeoInput;
 };
 
