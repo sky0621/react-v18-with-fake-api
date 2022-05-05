@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { Auth } from '../../domain/auth/entity';
 import getUserId from '../../usecase/get-user-id';
-import signInUserAuthCacheState from '../../store/auth';
+import signInUserAuthCacheState from '../../state/auth';
 import checkIsSignIn from '../../usecase/check-is-sign-in';
 
 const useAuth = () => {

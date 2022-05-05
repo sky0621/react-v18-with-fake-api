@@ -4,7 +4,7 @@ import { BaseSyntheticEvent, useState } from 'react';
 import { useQuery } from 'react-query';
 import { UserInput } from '../model';
 import { Auth } from '../../../../domain/auth/entity';
-import signInUserAuthCacheState from '../../../../store/auth';
+import signInUserAuthCacheState from '../../../../state/auth';
 import type { Alert } from '../../../../types/alert';
 import showMyInfo from '../../../../usecase/show-my-info';
 

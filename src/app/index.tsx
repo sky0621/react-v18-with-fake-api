@@ -3,9 +3,9 @@ import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { queryClient } from './api';
 import Router from '../ui/pages/Router';
 import Loading from '../ui/atoms/Loading';
+import { queryClient } from '../external/api';
 
 const App = () => (
   <StrictMode>

@@ -5,7 +5,7 @@ import { isLeft } from 'fp-ts/Either';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import type { Alert } from '../../../../types/alert';
 import { Auth } from '../../../../domain/auth/entity';
-import signInUserAuthCacheState from '../../../../store/auth';
+import signInUserAuthCacheState from '../../../../state/auth';
 import getUserId from '../../../../usecase/get-user-id';
 import { SignInInput } from '../model';
 import checkIsSignIn from '../../../../usecase/check-is-sign-in';

@@ -1,5 +1,5 @@
-import { apiClient } from '../app/api';
 import { User } from '../domain/user/entity';
+import { apiClient } from '../external/api';
 
 const createUserRepository = () => ({
   getUser: async (id: number): Promise<User> => {

@@ -1,6 +1,6 @@
 import ky, { Options } from 'ky';
 import { QueryClient } from 'react-query';
-import { API_URL } from '../config';
+import { API_URL } from '../app/config';
 
 const defaultOptions: Options = {
   prefixUrl: API_URL,

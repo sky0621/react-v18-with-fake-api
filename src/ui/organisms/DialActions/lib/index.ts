@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { Action } from '../model';
 import { Auth } from '../../../../domain/auth/entity';
-import signInUserAuthCacheState from '../../../../store/auth';
+import signInUserAuthCacheState from '../../../../state/auth';
 import signOut from '../../../../usecase/sign-out';
 
 const useDialActions = () => {
