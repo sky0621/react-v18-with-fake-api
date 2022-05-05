@@ -2,8 +2,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import React from 'react';
-import { Avatar, FormControlLabel, TextField } from '@mui/material';
-import Checkbox from '@mui/material/Checkbox';
+import { Avatar, TextField } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import { Controller } from 'react-hook-form';
@@ -153,7 +152,7 @@ const Me: React.FC = () => {
                   defaultValue={user?.address?.street}
                   render={({ field }) => (
                     <TextField
-                      id="street"
+                      id="address.street"
                       type="text"
                       label="Street"
                       fullWidth
@@ -171,7 +170,7 @@ const Me: React.FC = () => {
                   defaultValue={user?.address?.suite}
                   render={({ field }) => (
                     <TextField
-                      id="suite"
+                      id="address.suite"
                       type="text"
                       label="Suite"
                       fullWidth
@@ -189,7 +188,7 @@ const Me: React.FC = () => {
                   defaultValue={user?.address?.city}
                   render={({ field }) => (
                     <TextField
-                      id="city"
+                      id="address.city"
                       type="text"
                       label="City"
                       fullWidth
@@ -207,7 +206,7 @@ const Me: React.FC = () => {
                   defaultValue={separateZip(user?.address?.zipcode)[0]}
                   render={({ field }) => (
                     <TextField
-                      id="zipcode1"
+                      id="address.zipcode.first"
                       type="text"
                       label="Zip Code first"
                       fullWidth
@@ -227,7 +226,7 @@ const Me: React.FC = () => {
                   defaultValue={separateZip(user?.address?.zipcode)[1]}
                   render={({ field }) => (
                     <TextField
-                      id="zipcode2"
+                      id="address.zipcode.second"
                       type="text"
                       label="Zip Code second"
                       fullWidth
@@ -245,7 +244,7 @@ const Me: React.FC = () => {
                   defaultValue={user?.address?.geo?.lat}
                   render={({ field }) => (
                     <TextField
-                      id="lat"
+                      id="address.get.lat"
                       type="number"
                       label="Geo(Lat)"
                       fullWidth
@@ -263,7 +262,7 @@ const Me: React.FC = () => {
                   defaultValue={user?.address?.geo?.lng}
                   render={({ field }) => (
                     <TextField
-                      id="lng"
+                      id="address.geo.lng"
                       type="number"
                       label="Geo(Lng)"
                       fullWidth
@@ -277,18 +276,63 @@ const Me: React.FC = () => {
           </Paper>
           {/* Company */}
           <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
-            <Grid container spacing={3} />
-          </Paper>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox color="secondary" name="saveCard" value="yes" />
-                }
-                label="Remember credit card details for next time"
-              />
+            <Grid container spacing={3}>
+              {/* name */}
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="company.name"
+                  control={control}
+                  defaultValue={user?.company?.name}
+                  render={({ field }) => (
+                    <TextField
+                      id="company.name"
+                      type="text"
+                      label="Name"
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid>
+              {/* Catch Phrase */}
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="company.catchPhrase"
+                  control={control}
+                  defaultValue={user?.company?.catchPhrase}
+                  render={({ field }) => (
+                    <TextField
+                      id="company.catchPhrase"
+                      type="text"
+                      label="Catch Phrase"
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid>
+              {/* BS */}
+              <Grid item xs={12} sm={6}>
+                <Controller
+                  name="company.bs"
+                  control={control}
+                  defaultValue={user?.company?.bs}
+                  render={({ field }) => (
+                    <TextField
+                      id="company.bs"
+                      type="text"
+                      label="BS"
+                      fullWidth
+                      variant="standard"
+                      {...field}
+                    />
+                  )}
+                />
+              </Grid>
             </Grid>
-          </Grid>
+          </Paper>
         </form>
       </Paper>
     </Container>
