@@ -31,9 +31,9 @@ const InputGroup: React.FC<Props> = (props) => {
     <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
       <Grid container spacing={3}>
         {inputs.map((input) => (
-          <Grid key={uniqueId()} item xs={12} sm={6}>
+          <Grid key={uniqueId(`${input.name}Grid`)} item xs={12} sm={6}>
             <ControlledTextField
-              key={uniqueId()}
+              key={uniqueId(input.name)}
               control={control}
               name={input.name}
               label={input.label}

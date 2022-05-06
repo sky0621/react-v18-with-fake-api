@@ -11,10 +11,9 @@ import separateZip from '../../../../domain/user/service';
 import InputGroup, { Input } from '../../../molecules/InputGroup';
 
 const Me: React.FC = () => {
-  const { handleSubmit, control, errors } = useMeForm();
+  const { handleSubmit, control } = useMeForm();
   const { user } = useMe();
   const { handleEditMe } = useEditMeSubmit();
-  console.log(errors);
 
   const baseInputs: Input[] = [
     {
@@ -47,29 +46,47 @@ const Me: React.FC = () => {
     },
   ];
 
+  const companyInputs: Input[] = [
+    {
+      name: 'company.name',
+      label: 'Name',
+      defaultValue: user?.company?.name,
+    },
+    {
+      name: 'company.catchPhrase',
+      label: 'Catch Phrase',
+      defaultValue: user?.company?.catchPhrase,
+    },
+    {
+      name: 'company.bs',
+      label: 'BS',
+      defaultValue: user?.company?.bs,
+    },
+  ];
+
   return (
     <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
       <Paper
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <AccountCircleIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          ID: {user?.id}
-        </Typography>
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form onSubmit={handleSubmit(handleEditMe)}>
-          <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={12}>
-                <Button type="submit" variant="outlined">
-                  EDIT
-                </Button>
-              </Grid>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={1}>
+              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                <AccountCircleIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                ID: {user?.id}
+              </Typography>
             </Grid>
-          </Paper>
+            <Grid item xs={12} sm={11}>
+              <Button type="submit" variant="outlined">
+                EDIT
+              </Button>
+            </Grid>
+          </Grid>
           {/* Basic */}
           <InputGroup control={control} inputs={baseInputs} />
           {/* Address */}
@@ -206,64 +223,7 @@ const Me: React.FC = () => {
             </Grid>
           </Paper>
           {/* Company */}
-          <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
-            <Grid container spacing={3}>
-              {/* name */}
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name="company.name"
-                  control={control}
-                  defaultValue={user?.company?.name}
-                  render={({ field }) => (
-                    <TextField
-                      id="company.name"
-                      type="text"
-                      label="Name"
-                      fullWidth
-                      variant="standard"
-                      {...field}
-                    />
-                  )}
-                />
-              </Grid>
-              {/* Catch Phrase */}
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name="company.catchPhrase"
-                  control={control}
-                  defaultValue={user?.company?.catchPhrase}
-                  render={({ field }) => (
-                    <TextField
-                      id="company.catchPhrase"
-                      type="text"
-                      label="Catch Phrase"
-                      fullWidth
-                      variant="standard"
-                      {...field}
-                    />
-                  )}
-                />
-              </Grid>
-              {/* BS */}
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name="company.bs"
-                  control={control}
-                  defaultValue={user?.company?.bs}
-                  render={({ field }) => (
-                    <TextField
-                      id="company.bs"
-                      type="text"
-                      label="BS"
-                      fullWidth
-                      variant="standard"
-                      {...field}
-                    />
-                  )}
-                />
-              </Grid>
-            </Grid>
-          </Paper>
+          <InputGroup control={control} inputs={companyInputs} />
         </form>
       </Paper>
     </Container>

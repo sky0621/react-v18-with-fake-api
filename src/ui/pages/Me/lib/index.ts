@@ -1,9 +1,4 @@
-import {
-  FieldValues,
-  FormState,
-  SubmitHandler,
-  useForm,
-} from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { BaseSyntheticEvent, useState } from 'react';
 import { useQuery } from 'react-query';
@@ -17,25 +12,19 @@ import showMyInfo from '../../../../usecase/show-my-info';
 export type UseMeFormResponse = Pick<
   ReturnType<typeof useForm>,
   'handleSubmit' | 'control'
-> &
-  Pick<FormState<FieldValues>, 'errors'>;
+>;
 
 /*
  * ユーザー情報フォームに関するカスタムフック
  */
 export const useMeForm = (): UseMeFormResponse => {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<UserInput>({
+  const { handleSubmit, control } = useForm<UserInput>({
     resolver: yupResolver(UserInputScheme),
   });
 
   return {
     handleSubmit,
     control,
-    errors,
   };
 };
 
