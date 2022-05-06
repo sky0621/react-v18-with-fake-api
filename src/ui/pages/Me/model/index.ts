@@ -1,3 +1,6 @@
+import { FieldValues } from 'react-hook-form';
+import * as yup from 'yup';
+
 export type GeoInput = {
   lat: number;
   lng: number;
@@ -22,13 +25,21 @@ export type CompanyInput = {
   bs: string;
 };
 
-export type UserInput = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: AddressInput;
-  phone: string;
-  website: string;
-  company: CompanyInput;
-};
+export type UserInput =
+  | {
+      id: number;
+      name: string;
+      username: string;
+      email: string;
+      address: AddressInput;
+      phone: string;
+      website: string;
+      company: CompanyInput;
+    }
+  | FieldValues;
+
+export const UserInputScheme = yup.object({
+  name: yup.string().required(),
+  username: yup.string().required(),
+  email: yup.string().required(),
+});

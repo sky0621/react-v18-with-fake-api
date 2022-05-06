@@ -1,22 +1,36 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
+import {
+  FieldValues,
+  FormState,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { BaseSyntheticEvent, useState } from 'react';
 import { useQuery } from 'react-query';
-import { UserInput } from '../model';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { UserInput, UserInputScheme } from '../model';
 import { Auth } from '../../../../domain/auth/entity';
 import signInUserAuthCacheState from '../../../../state/auth';
 import type { Alert } from '../../../../types/alert';
 import showMyInfo from '../../../../usecase/show-my-info';
 
+export type UseMeFormResponse = Pick<
+  ReturnType<typeof useForm>,
+  'handleSubmit' | 'control'
+> &
+  Pick<FormState<FieldValues>, 'errors'>;
+
 /*
  * ユーザー情報フォームに関するカスタムフック
  */
-export const useMeForm = () => {
+export const useMeForm = (): UseMeFormResponse => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<UserInput>();
+  } = useForm<UserInput>({
+    resolver: yupResolver(UserInputScheme),
+  });
 
   return {
     handleSubmit,
@@ -55,6 +69,9 @@ export const useEditMeSubmit = () => {
     data,
     event: BaseSyntheticEvent | undefined,
   ) => {
+    console.log('!!! handleEditMe !!!');
+    console.log(data);
+
     event?.preventDefault();
 
     // FIXME: ユーザー編集ユースケースをコール！

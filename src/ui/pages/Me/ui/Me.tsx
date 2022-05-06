@@ -2,17 +2,50 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import React from 'react';
-import { Avatar, TextField } from '@mui/material';
+import { Avatar, Button, TextField } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from '@mui/material/Typography';
 import { Controller } from 'react-hook-form';
 import { useEditMeSubmit, useMe, useMeForm } from '../lib';
 import separateZip from '../../../../domain/user/service';
+import InputGroup, { Input } from '../../../molecules/InputGroup';
 
 const Me: React.FC = () => {
   const { handleSubmit, control, errors } = useMeForm();
   const { user } = useMe();
   const { handleEditMe } = useEditMeSubmit();
+  console.log(errors);
+
+  const baseInputs: Input[] = [
+    {
+      name: 'name',
+      label: 'Name',
+      defaultValue: user?.name,
+      rules: { required: true },
+    },
+    {
+      name: 'username',
+      label: 'User Name',
+      defaultValue: user?.username,
+      rules: { required: true },
+    },
+    {
+      name: 'email',
+      label: 'Email Address',
+      defaultValue: user?.email,
+      rules: { required: true },
+    },
+    {
+      name: 'phone',
+      label: 'Phone',
+      defaultValue: user?.phone,
+    },
+    {
+      name: 'website',
+      label: 'Web Site',
+      defaultValue: user?.website,
+    },
+  ];
 
   return (
     <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
@@ -28,119 +61,17 @@ const Me: React.FC = () => {
         </Typography>
         {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form onSubmit={handleSubmit(handleEditMe)}>
-          {/* Basic */}
           <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
             <Grid container spacing={3}>
-              {/* Name */}
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name="name"
-                  control={control}
-                  defaultValue={user?.name}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      id="name"
-                      type="text"
-                      label="Name"
-                      required
-                      fullWidth
-                      autoComplete="given-name"
-                      variant="standard"
-                      {...field}
-                    />
-                  )}
-                />
-                {errors.name && <div>Name is required</div>}
-              </Grid>
-              {/* User Name */}
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name="username"
-                  control={control}
-                  defaultValue={user?.username}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      id="username"
-                      type="text"
-                      label="User Name"
-                      required
-                      fullWidth
-                      autoComplete="given-name"
-                      variant="standard"
-                      {...field}
-                    />
-                  )}
-                />
-                {errors.username && <div>User Name is required</div>}
-              </Grid>
-              {/* Email Address */}
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name="email"
-                  control={control}
-                  defaultValue={user?.email}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      id="email"
-                      type="email"
-                      label="Email Address"
-                      required
-                      fullWidth
-                      autoComplete="email"
-                      variant="standard"
-                      {...field}
-                    />
-                  )}
-                />
-                {errors.email && <div>Email Address is required</div>}
-              </Grid>
-              {/* Phone */}
-              <Grid item xs={12} sm={6}>
-                <Controller
-                  name="phone"
-                  control={control}
-                  defaultValue={user?.phone}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      id="phone"
-                      type="tel"
-                      label="Phone"
-                      required
-                      fullWidth
-                      variant="standard"
-                      {...field}
-                    />
-                  )}
-                />
-                {errors.phone && <div>Phone is required</div>}
-              </Grid>
-              {/* Web Site */}
               <Grid item xs={12} sm={12}>
-                <Controller
-                  name="website"
-                  control={control}
-                  defaultValue={user?.website}
-                  rules={{ required: true }}
-                  render={({ field }) => (
-                    <TextField
-                      id="website"
-                      type="text"
-                      label="Web Site"
-                      required
-                      fullWidth
-                      variant="standard"
-                      {...field}
-                    />
-                  )}
-                />
-                {errors.website && <div>Web Site is required</div>}
+                <Button type="submit" variant="outlined">
+                  EDIT
+                </Button>
               </Grid>
             </Grid>
           </Paper>
+          {/* Basic */}
+          <InputGroup control={control} inputs={baseInputs} />
           {/* Address */}
           <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
             <Grid container spacing={3}>
