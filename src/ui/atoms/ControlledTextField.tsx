@@ -9,7 +9,7 @@ type Props = {
   control: Control<FieldValues>;
   name: string;
   label: string;
-  defaultValue: string | undefined;
+  defaultValue: string | number | undefined;
   // eslint-disable-next-line react/require-default-props
   rules?: Omit<
     RegisterOptions<FieldValues, FieldPath<FieldValues>>,

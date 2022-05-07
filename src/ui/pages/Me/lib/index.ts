@@ -8,6 +8,9 @@ import { Auth } from '../../../../domain/auth/entity';
 import signInUserAuthCacheState from '../../../../state/auth';
 import type { Alert } from '../../../../types/alert';
 import showMyInfo from '../../../../usecase/show-my-info';
+import { Input } from '../../../molecules/InputGroup';
+import { User } from '../../../../domain/user/entity';
+import separateZip from '../../../../domain/user/service';
 
 export type UseMeFormResponse = Pick<
   ReturnType<typeof useForm>,
@@ -42,6 +45,105 @@ export const useMe = () => {
 
   return {
     user,
+  };
+};
+
+export const useInputs = (user: User | undefined) => {
+  const baseInputs: Input[] = [
+    {
+      name: 'name',
+      label: 'Name',
+      defaultValue: user?.name,
+      rules: { required: true },
+    },
+    {
+      name: 'username',
+      label: 'User Name',
+      defaultValue: user?.username,
+      rules: { required: true },
+    },
+    {
+      name: 'email',
+      label: 'Email Address',
+      defaultValue: user?.email,
+      rules: { required: true },
+    },
+    {
+      name: 'phone',
+      label: 'Phone',
+      defaultValue: user?.phone,
+    },
+    {
+      name: 'website',
+      label: 'Web Site',
+      defaultValue: user?.website,
+    },
+  ];
+
+  const addressInputs: Input[] = [
+    {
+      name: 'address.street',
+      label: 'Street',
+      defaultValue: user?.address?.street,
+    },
+    {
+      name: 'address.suite',
+      label: 'Suite',
+      defaultValue: user?.address?.suite,
+    },
+    {
+      name: 'address.city',
+      label: 'City',
+      defaultValue: user?.address?.city,
+    },
+    {
+      name: 'address.zipcode.first',
+      label: 'Zip Code first',
+      defaultValue: separateZip(user?.address?.zipcode)[0],
+      itemSize: 3,
+    },
+    {
+      name: 'address.zipcode.second',
+      label: 'Zip Code second',
+      defaultValue: separateZip(user?.address?.zipcode)[1],
+      itemSize: 3,
+    },
+    {
+      name: 'address.geo.lat',
+      label: 'Geo(Lat)',
+      defaultValue: user?.address?.geo?.lat,
+      itemSize: 3,
+    },
+    {
+      name: 'address.geo.lng',
+      label: 'Geo(Lng)',
+      defaultValue: user?.address?.geo?.lng,
+      itemSize: 3,
+    },
+  ];
+
+  const companyInputs: Input[] = [
+    {
+      name: 'company.name',
+      label: 'Name',
+      defaultValue: user?.company?.name,
+    },
+    {
+      name: 'company.catchPhrase',
+      label: 'Catch Phrase',
+      defaultValue: user?.company?.catchPhrase,
+    },
+    {
+      name: 'company.bs',
+      label: 'BS',
+      defaultValue: user?.company?.bs,
+    },
+  ];
+
+  return {
+    baseInputs,
+    addressInputs,
+    companyInputs,
   };
 };
 

@@ -52,7 +52,9 @@
     "lint:conflict": "eslint-config-prettier 'src/**/*.{js,jsx,ts,tsx}'",
     "lint:style": "stylelint 'src/**/*.{css,less,sass,scss}'",
     "lint:style:fix": "stylelint --fix 'src/**/*.{css,less,sass,scss}'",
-    "preinstall": "typesync || :"
+    "preinstall": "typesync || :",
+    "scaffdog:create": "npx scaffdog init",
+    "scaffdog:gen": "npx scaffdog generate"
   },
   "eslintConfig": {
     "extends": [

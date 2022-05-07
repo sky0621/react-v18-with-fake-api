@@ -11,12 +11,13 @@ import uniqueId from '../../domain/calc/id';
 export type Input = {
   name: string;
   label: string;
-  defaultValue: string | undefined;
+  defaultValue: string | number | undefined;
   // eslint-disable-next-line react/require-default-props
   rules?: Omit<
     RegisterOptions<FieldValues, FieldPath<FieldValues>>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
+  itemSize?: number;
 };
 
 type Props = {
@@ -31,7 +32,12 @@ const InputGroup: React.FC<Props> = (props) => {
     <Paper sx={{ my: { xs: 2, md: 4 }, p: { xs: 2, md: 3 } }}>
       <Grid container spacing={3}>
         {inputs.map((input) => (
-          <Grid key={uniqueId(`${input.name}Grid`)} item xs={12} sm={6}>
+          <Grid
+            key={uniqueId(`${input.name}Grid`)}
+            item
+            xs={12}
+            sm={input.itemSize ? input.itemSize : 6}
+          >
             <ControlledTextField
               key={uniqueId(input.name)}
               control={control}
