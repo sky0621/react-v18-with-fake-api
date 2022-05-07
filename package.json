@@ -91,6 +91,7 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.6.1",
+    "scaffdog": "^1.2.0",
     "stylelint": "^14.6.1",
     "stylelint-config-recess-order": "^3.0.0",
     "stylelint-config-standard": "^25.0.0",
