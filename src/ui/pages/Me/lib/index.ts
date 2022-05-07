@@ -1,12 +1,11 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
-import { BaseSyntheticEvent, useState } from 'react';
+import { BaseSyntheticEvent } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { UserInput, UserInputScheme } from '../model';
+import { toUser, UserInput, UserInputScheme } from '../model';
 import { Auth } from '../../../../domain/auth/entity';
 import signInUserAuthCacheState from '../../../../state/auth';
-import type { Alert } from '../../../../types/alert';
 import showMyInfo from '../../../../usecase/show-my-info';
 import { Input } from '../../../molecules/InputGroup';
 import { User } from '../../../../domain/user/entity';
@@ -154,23 +153,25 @@ export const useInputs = (user: User | undefined) => {
 /*
  * ユーザー情報編集処理に関するカスタムフック
  */
-export const useEditMeSubmit = () => {
+export const useEditMeSubmit = (userId: number) => {
   // ユーザー通知アラートのオンオフ切り替え用
-  const [alert, setAlert] = useState(null as Alert | null);
-  console.log(setAlert);
+  //  const [alert, setAlert] = useState(null as Alert | null);
+  //  console.log(setAlert);
+
+  const mutation = useMutation<User, unknown, User>((u: User) =>
+    updateMyInfo(u),
+  );
 
   // ユーザー編集発火時処理
   const handleEditMe: SubmitHandler<UserInput> = (
     data,
     event: BaseSyntheticEvent | undefined,
   ) => {
-    console.log('!!! handleEditMe !!!');
-    console.log(data);
-
     event?.preventDefault();
 
-    // FIXME: ユーザー編集ユースケースをコール！
-    const mutation = useMutation((u) => updateMyInfo(u));
+    // ユーザー編集ユースケースをコール
+    const res = mutation.mutate(toUser(userId, data));
+    console.log(res);
 
     //    if (isLeft(eAuth)) {
     //      setAlert(eAuth.left);
@@ -179,6 +180,6 @@ export const useEditMeSubmit = () => {
 
   return {
     handleEditMe,
-    alert,
+    //    alert,
   };
 };

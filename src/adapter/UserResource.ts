@@ -18,10 +18,15 @@ const createUserRepository = () => ({
     return users;
   },
 
-  updateUser: async (user: User): Promise<void> => {
+  updateUser: async (user: User): Promise<User> => {
     console.log(`[adapter/UserRepository] updateUser(${user.id}) called`);
-    const res = await apiClient.put('users', { json: {} }).json<User>();
+    const res = await apiClient
+      .put(`users/${user.id}`, { json: user })
+      .json<User>();
+
     console.log(res);
+
+    return res;
   },
 });
 

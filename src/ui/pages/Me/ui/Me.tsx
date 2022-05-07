@@ -10,7 +10,7 @@ const Me: React.FC = () => {
   const { handleSubmit, control } = useMeForm();
   const { user } = useMe();
   const { baseInputs, addressInputs, companyInputs } = useInputs(user);
-  const { handleEditMe } = useEditMeSubmit();
+  const { handleEditMe } = useEditMeSubmit(user ? user.id : 0);
 
   return (
     <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>

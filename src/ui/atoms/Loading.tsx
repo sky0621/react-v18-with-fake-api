@@ -1,17 +1,12 @@
 import React from 'react';
+import { Backdrop, CircularProgress } from '@mui/material';
 
-type Props = {
-  message: string;
-};
-
-const LoadingAtom: React.FC<Props> = (props) => {
-  const { message } = props;
-
-  return (
-    <>
-      <div>{message}</div>
-    </>
-  );
-};
+const LoadingAtom: React.FC = () => (
+  <>
+    <Backdrop open>
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  </>
+);
 
 export default LoadingAtom;

@@ -1,4 +1,4 @@
-import React, { Suspense, StrictMode } from 'react';
+import React, { StrictMode, Suspense } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
@@ -12,7 +12,7 @@ const App = () => (
     <RecoilRoot>
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <Suspense fallback={<Loading message="sending ..." />}>
+          <Suspense fallback={<Loading />}>
             <Router />
           </Suspense>
           {process.env.NODE_ENV === 'development' && (
