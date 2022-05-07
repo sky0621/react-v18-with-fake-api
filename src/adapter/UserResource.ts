@@ -17,6 +17,12 @@ const createUserRepository = () => ({
 
     return users;
   },
+
+  updateUser: async (user: User): Promise<void> => {
+    console.log(`[adapter/UserRepository] updateUser(${user.id}) called`);
+    const res = await apiClient.put('users', { json: {} }).json<User>();
+    console.log(res);
+  },
 });
 
 export default createUserRepository;

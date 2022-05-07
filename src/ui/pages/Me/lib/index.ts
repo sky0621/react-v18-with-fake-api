@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 import { BaseSyntheticEvent, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UserInput, UserInputScheme } from '../model';
 import { Auth } from '../../../../domain/auth/entity';
@@ -11,6 +11,7 @@ import showMyInfo from '../../../../usecase/show-my-info';
 import { Input } from '../../../molecules/InputGroup';
 import { User } from '../../../../domain/user/entity';
 import separateZip from '../../../../domain/user/service';
+import updateMyInfo from '../../../../usecase/update-my-info';
 
 export type UseMeFormResponse = Pick<
   ReturnType<typeof useForm>,
@@ -48,6 +49,9 @@ export const useMe = () => {
   };
 };
 
+/*
+ * ユーザー情報表示フォームの個別要素の初期化に関するカスタムフック
+ */
 export const useInputs = (user: User | undefined) => {
   const baseInputs: Input[] = [
     {
@@ -166,6 +170,7 @@ export const useEditMeSubmit = () => {
     event?.preventDefault();
 
     // FIXME: ユーザー編集ユースケースをコール！
+    const mutation = useMutation((u) => updateMyInfo(u));
 
     //    if (isLeft(eAuth)) {
     //      setAlert(eAuth.left);

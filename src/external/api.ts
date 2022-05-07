@@ -17,8 +17,9 @@ export const apiClient = ky.create(defaultOptions);
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 0,
+      retry: 2,
       suspense: true,
+      cacheTime: 1000 * 60 * 1,
     },
     mutations: {
       retry: 0,
