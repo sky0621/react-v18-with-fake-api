@@ -1,5 +1,6 @@
 import { userRepository } from '../domain/user/repository';
 
-const showMyInfo = (id: number) => userRepository.getUser(id);
+const showMyInfo = (token: string, id: number) =>
+  userRepository.getUser(token, id);
 
 export default showMyInfo;

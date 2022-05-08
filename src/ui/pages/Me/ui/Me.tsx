@@ -5,15 +5,17 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useEditMeSubmit, useInputs, useMe, useMeForm } from '../lib';
 import InputGroup from '../../../molecules/InputGroup';
 import InputFace from '../../../molecules/InputFace';
+import BriefNotification from '../../../organisms/BriefNotification/ui/BriefNotification';
 
 const Me: React.FC = () => {
   const { handleSubmit, control } = useMeForm();
-  const { user } = useMe();
+  const { user, alert } = useMe();
   const { baseInputs, addressInputs, companyInputs } = useInputs(user);
   const { handleEditMe } = useEditMeSubmit(user ? user.id : 0);
 
   return (
     <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
+      {alert != null && <BriefNotification log={alert} />}
       <Paper
         variant="outlined"
         sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}

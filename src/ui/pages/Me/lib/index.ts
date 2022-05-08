@@ -1,8 +1,9 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
-import { BaseSyntheticEvent } from 'react';
+import { BaseSyntheticEvent, useState } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { isLeft } from 'fp-ts/Either';
 import { toUser, UserInput, UserInputScheme } from '../model';
 import { Auth } from '../../../../domain/auth/entity';
 import signInUserAuthCacheState from '../../../../state/auth';
@@ -11,6 +12,8 @@ import { Input } from '../../../molecules/InputGroup';
 import { User } from '../../../../domain/user/entity';
 import separateZip from '../../../../domain/user/service';
 import updateMyInfo from '../../../../usecase/update-my-info';
+import type { Alert } from '../../../../types/alert';
+import { createErrorLog } from '../../../../app/log';
 
 export type UseMeFormResponse = Pick<
   ReturnType<typeof useForm>,
@@ -35,16 +38,45 @@ export const useMeForm = (): UseMeFormResponse => {
  * ユーザー情報取得に関するカスタムフック
  */
 export const useMe = () => {
-  // オンメモリキャッシュから（サインイン時にセットした）ユーザーIDを取得
+  // オンメモリキャッシュから（サインイン時にセットした）トークンとユーザーIDを取得
   const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
-  const { userId } = signInUserAuthCache;
+  const { token, userId } = signInUserAuthCache;
 
-  const { data: user } = useQuery([userId, 'user'], () => showMyInfo(userId), {
+  const { data } = useQuery([userId, 'user'], () => showMyInfo(token, userId), {
     enabled: !!userId,
   });
 
+  // ユーザー通知アラートのオンオフ切り替え用
+  const [alert, setAlert] = useState(null as Alert | null);
+
+  if (!data) {
+    setAlert(
+      createErrorLog('adapter/UserResource.ts#getUser', userId, {
+        kind: 'ApiError',
+        message: 'user is none',
+      }),
+    );
+
+    return {
+      undefined,
+      alert,
+    };
+  }
+
+  if (isLeft(data)) {
+    setAlert(data.left);
+
+    return {
+      undefined,
+      alert,
+    };
+  }
+
+  const user = data.right;
+
   return {
     user,
+    alert,
   };
 };
 
@@ -158,8 +190,11 @@ export const useEditMeSubmit = (userId: number) => {
   //  const [alert, setAlert] = useState(null as Alert | null);
   //  console.log(setAlert);
 
+  // オンメモリキャッシュから（サインイン時にセットした）トークンを取得
+  const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
+  const { token } = signInUserAuthCache;
   const mutation = useMutation<User, unknown, User>((u: User) =>
-    updateMyInfo(u),
+    updateMyInfo(token, u),
   );
 
   // ユーザー編集発火時処理

@@ -1,18 +1,21 @@
 import { Either, left, right } from 'fp-ts/Either';
 import { User } from '../domain/user/entity';
-import { apiClient } from '../external/api';
+import { apiClient, apiGet } from '../external/api';
 import type { Alert } from '../types/alert';
 import { createErrorLog } from '../app/log';
 
 const createUserRepository = () => ({
   getUser: async (token: string, id: number): Promise<Either<Alert, User>> => {
     console.log(`[adapter/UserRepository] getUser(${id}) called`);
-    const response = await apiClient.get(`users/${id}`, {headers: {''}});
+    // FIXME: 9999999
+    const response = await apiGet(`users/9999999`, token, {
+      headers: { abc: 'def' },
+    });
     if (!response.ok) {
       return left(
         createErrorLog('adapter/UserResource.ts#getUser', id, {
           kind: 'ApiError',
-          message: '/users/id',
+          message: 'error occurred',
           status: { code: response.status, text: response.statusText },
         }),
       );
@@ -23,6 +26,7 @@ const createUserRepository = () => ({
   },
 
   getUsers: async (token: string): Promise<User[]> => {
+    console.log(token);
     console.log('[adapter/UserRepository] getUsers called');
     const response = await apiClient.get('users');
     const users = (await response.json()) as User[];
@@ -31,6 +35,7 @@ const createUserRepository = () => ({
   },
 
   updateUser: async (token: string, user: User): Promise<User> => {
+    console.log(token);
     console.log(`[adapter/UserRepository] updateUser(${user.id}) called`);
     const res = await apiClient
       .put(`users/${user.id}`, { json: user })

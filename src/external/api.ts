@@ -1,19 +1,38 @@
 import ky, { Options } from 'ky';
 import { QueryClient } from 'react-query';
+import deepmerge from 'deepmerge';
 import { API_URL } from '../app/config';
 
-const defaultOptions: Options = {
+/*
+ * APIクライアント
+ */
+export const apiClient = ky.create({
   prefixUrl: API_URL,
   retry: {
     limit: 3,
-    methods: ['get'],
+    methods: ['get', 'post', 'put', 'patch', 'delete'],
     statusCodes: [413],
   },
   timeout: 5000,
-};
+});
 
-export const apiClient = ky.create(defaultOptions);
+export const apiGet = (url: string, token: string, options?: Options) =>
+  apiClient.get(
+    url,
+    deepmerge(
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+      options || {},
+    ),
+  );
 
+/*
+ * React Queryクライアント
+ */
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

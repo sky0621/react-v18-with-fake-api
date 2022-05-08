@@ -25,5 +25,8 @@ export const createWarnLog = (where: string, who: LogWho, what: LogWhat) =>
 export const createErrorLog = (where: string, who: LogWho, what: LogWhat) =>
   createLog('error', where, who, what);
 
+export const createEasyErrorLog = (where: string, who: LogWho, what: LogWhat) =>
+  createLog('error', where, who, what);
+
 export const createFatalLog = (where: string, who: LogWho, what: LogWhat) =>
   createLog('fatal', where, who, what);
