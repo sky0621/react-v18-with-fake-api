@@ -14,14 +14,26 @@ export type LogLevel =
 
 export type LogKindRequired = 'Required';
 export type LogKindNotFound = 'NotFound';
+export type LogKindApiError = 'ApiError';
 export type LogKindUnknown = 'Unknown';
-export type LogKind = LogKindRequired | LogKindNotFound | LogKindUnknown;
+export type LogKind =
+  | LogKindRequired
+  | LogKindNotFound
+  | LogKindApiError
+  | LogKindUnknown;
 
 export type LogWho = number | string | 'Unknown'; // sign-in user id
+
+export type LogStatus = {
+  code: number;
+  text: string;
+};
 
 export type LogWhat = {
   kind: LogKind;
   message: string;
+
+  status?: LogStatus;
 };
 
 export type Log = {
