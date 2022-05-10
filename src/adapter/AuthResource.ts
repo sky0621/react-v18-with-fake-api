@@ -47,7 +47,7 @@ const checkToken = (userId: number) => {
 
 const createAuthRepository = () => ({
   signIn: (email: string, password: string): Either<Alert, Auth> => {
-    consoleDebugLog('pass', 'adapter/AuthResource.ts', `signIn(${email})`);
+    consoleDebugLog('adapter/AuthResource.ts', `signIn(${email})`)('pass');
 
     if (!email || !password) {
       return left(
@@ -81,7 +81,7 @@ const createAuthRepository = () => ({
   },
 
   signOut: (userId: number) => {
-    consoleDebugLog('pass', 'adapter/AuthResource.ts', `signOut(${userId})`);
+    consoleDebugLog('adapter/AuthResource.ts', `signOut(${userId})`)('pass');
 
     if (checkToken(userId)) {
       removeStorageItem(AUTH_KEY);
@@ -89,28 +89,26 @@ const createAuthRepository = () => ({
   },
 
   isSignIn: (userId: number) => {
-    consoleDebugLog('pass', 'adapter/AuthResource.ts', `isSignIn(${userId})`);
+    consoleDebugLog('adapter/AuthResource.ts', `isSignIn(${userId})`)('pass');
 
     return checkToken(userId);
   },
 
   getUserId: () => {
-    consoleDebugLog('pass', 'adapter/AuthResource.ts', 'getUserId');
+    consoleDebugLog('adapter/AuthResource.ts', 'getUserId')('pass');
 
     const token = getStorageItem(AUTH_KEY);
     consoleDebugLog(
-      `token: ${token ?? '-'}`,
       'adapter/AuthResource.ts',
       'getUserId',
-    );
+    )(`token: ${token ?? '-'}`);
     if (!token) return null;
 
     const [_, userId] = pickSignInIdAndUserIdByToken(token);
     consoleDebugLog(
-      `userId: ${userId}`,
       'adapter/AuthResource.ts',
       'getUserId',
-    );
+    )(`userId: ${userId}`);
     if (userId === 0) return null;
 
     return userId;

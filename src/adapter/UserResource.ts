@@ -3,11 +3,11 @@ import { HTTPError } from 'ky';
 import { User } from '../domain/user/entity';
 import { apiClient, apiGet } from '../external/api';
 import type { Alert } from '../types/alert';
-import { createErrorLog } from '../app/log';
+import { consoleDebugLog, createErrorLog } from '../app/log';
 
 const createUserRepository = () => ({
   getUser: async (token: string, id: number): Promise<Either<Alert, User>> => {
-    console.log(`[adapter/UserRepository] getUser(${id}) called`);
+    consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)('pass');
     // FIXME: 9999999
     try {
       const response = await apiGet(`users/${id}`, token, {
@@ -30,6 +30,10 @@ const createUserRepository = () => ({
     } catch (error: any) {
       const httpErr = error as HTTPError;
       const errRes = httpErr.response;
+      consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)(
+        'error: ',
+        error,
+      );
 
       return left(
         createErrorLog('adapter/UserResource.ts#getUser', id, {

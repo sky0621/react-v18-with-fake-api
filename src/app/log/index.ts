@@ -32,16 +32,20 @@ export const createEasyErrorLog = (where: string, who: LogWho, what: LogWhat) =>
 export const createFatalLog = (where: string, who: LogWho, what: LogWhat) =>
   createLog('fatal', where, who, what);
 
-export const consoleDebugLog = (
-  message: any,
-  filePath?: string | undefined,
-  funcName?: string | undefined,
-) => {
-  if (DEBUG) {
-    //    const t = new Date().toLocaleString();
-    const fp = filePath ?? '-';
-    const fn = funcName ?? '-';
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    console.log(`[${fp}] [${fn}]\n ${message}`);
-  }
-};
+export const consoleDebugLog =
+  (filePath?: string | undefined, funcName?: string | undefined) =>
+  (...args: any) => {
+    if (DEBUG) {
+      let str = '';
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      if (args.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+        str = args.join(', ');
+      }
+      //    const t = new Date().toLocaleString();
+      const fp = filePath ?? '-';
+      const fn = funcName ?? '-';
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      console.log(`[${fp}] [${fn}]\n ${str}`);
+    }
+  };

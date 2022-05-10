@@ -24,7 +24,7 @@ export type UseMeFormResponse = Pick<
  * ユーザー情報フォームに関するカスタムフック
  */
 export const useMeForm = (): UseMeFormResponse => {
-  consoleDebugLog('pass', 'pages/Me/lib/index.ts', 'useMeForm');
+  consoleDebugLog('pages/Me/lib/index.ts', 'useMeForm')('pass');
 
   const { handleSubmit, control } = useForm<UserInput>({
     resolver: yupResolver(UserInputScheme),
@@ -40,7 +40,7 @@ export const useMeForm = (): UseMeFormResponse => {
  * ユーザー情報取得に関するカスタムフック
  */
 export const useMe = () => {
-  consoleDebugLog('pass', 'pages/Me/lib/index.ts', 'useMe');
+  consoleDebugLog('pages/Me/lib/index.ts', 'useMe')('pass');
 
   // オンメモリキャッシュから（サインイン時にセットした）トークンとユーザーIDを取得
   const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
@@ -88,11 +88,11 @@ export const useMe = () => {
  * ユーザー情報表示フォームの個別要素の初期化に関するカスタムフック
  */
 export const useInputs = (user: User | undefined) => {
-  consoleDebugLog('pass', 'pages/Me/lib/index.ts', 'useInputs');
+  consoleDebugLog('pages/Me/lib/index.ts', 'useInputs')('pass');
 
   const baseInputs = useMemo(() => {
     if (!user) return [];
-    consoleDebugLog('create baseInputs', 'pages/Me/lib/index.ts', 'useInputs');
+    consoleDebugLog('pages/Me/lib/index.ts', 'useInputs')('create baseInputs');
 
     return [
       {
@@ -128,10 +128,9 @@ export const useInputs = (user: User | undefined) => {
   const addressInputs = useMemo(() => {
     if (!user) return [];
     consoleDebugLog(
-      'create addressInputs',
       'pages/Me/lib/index.ts',
       'useInputs',
-    );
+    )('create addressInputs');
 
     return [
       {
@@ -179,10 +178,9 @@ export const useInputs = (user: User | undefined) => {
   const companyInputs = useMemo(() => {
     if (!user) return [];
     consoleDebugLog(
-      'create companyInputs',
       'pages/Me/lib/index.ts',
       'useInputs',
-    );
+    )('create companyInputs');
 
     return [
       {
@@ -214,7 +212,7 @@ export const useInputs = (user: User | undefined) => {
  * ユーザー情報編集処理に関するカスタムフック
  */
 export const useEditMeSubmit = (userId: number) => {
-  consoleDebugLog('pass', 'pages/Me/lib/index.ts', 'useEditMeSubmit');
+  consoleDebugLog('pages/Me/lib/index.ts', 'useEditMeSubmit')('pass');
 
   // ユーザー通知アラートのオンオフ切り替え用
   //  const [alert, setAlert] = useState(null as Alert | null);
@@ -236,7 +234,7 @@ export const useEditMeSubmit = (userId: number) => {
 
     // ユーザー編集ユースケースをコール
     const res = mutation.mutate(toUser(userId, data));
-    consoleDebugLog(res, 'pages/Me/lib/index.ts', 'useEditMeSubmit');
+    consoleDebugLog('pages/Me/lib/index.ts', 'useEditMeSubmit')(res);
 
     //    if (isLeft(eAuth)) {
     //      setAlert(eAuth.left);
