@@ -18,7 +18,7 @@ const Router = () => (
       }
     />
     <Route
-      path="/me"
+      path="me"
       element={
         <AuthTemplate>
           <Me />

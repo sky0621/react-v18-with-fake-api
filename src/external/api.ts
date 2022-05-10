@@ -9,11 +9,27 @@ import { API_URL } from '../app/config';
 export const apiClient = ky.create({
   prefixUrl: API_URL,
   retry: {
-    limit: 3,
+    limit: 1,
     methods: ['get', 'post', 'put', 'patch', 'delete'],
     statusCodes: [413],
   },
   timeout: 5000,
+  hooks: {
+    afterResponse: [
+      (request, options, response) => {
+        console.log(request);
+        console.log(options);
+        console.log(response);
+      },
+    ],
+    beforeError: [
+      (error) => {
+        console.log(error);
+
+        return error;
+      },
+    ],
+  },
 });
 
 export const apiGet = (url: string, token: string, options?: Options) =>
