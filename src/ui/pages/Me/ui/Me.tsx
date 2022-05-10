@@ -13,6 +13,14 @@ const Me: React.FC = () => {
   const { baseInputs, addressInputs, companyInputs } = useInputs(user);
   const { handleEditMe } = useEditMeSubmit(user ? user.id : 0);
 
+  if (
+    baseInputs.length === 0 ||
+    addressInputs.length === 0 ||
+    companyInputs.length === 0
+  ) {
+    return null;
+  }
+
   return (
     <Container component="main" maxWidth="lg" sx={{ mb: 4 }}>
       {alert != null && <BriefNotification log={alert} />}

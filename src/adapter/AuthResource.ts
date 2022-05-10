@@ -6,7 +6,7 @@ import {
   saveStorageItem,
 } from '../external/storage';
 import { AUTH_KEY } from '../app/config';
-import { createWarnLog } from '../app/log';
+import { consoleDebugLog, createWarnLog } from '../app/log';
 import type { Alert } from '../types/alert';
 
 // for user1@example.com
@@ -47,7 +47,8 @@ const checkToken = (userId: number) => {
 
 const createAuthRepository = () => ({
   signIn: (email: string, password: string): Either<Alert, Auth> => {
-    console.log(`[adapter/AuthRepository] signIn(${email}) called`);
+    consoleDebugLog('pass', 'adapter/AuthResource.ts', `signIn(${email})`);
+
     if (!email || !password) {
       return left(
         createWarnLog('adapter/AuthResource.ts#signIn', 'Unknown', {
@@ -80,18 +81,36 @@ const createAuthRepository = () => ({
   },
 
   signOut: (userId: number) => {
-    console.log(`[adapter/AuthRepository] signOut(${userId}) called`);
+    consoleDebugLog('pass', 'adapter/AuthResource.ts', `signOut(${userId})`);
+
     if (checkToken(userId)) {
       removeStorageItem(AUTH_KEY);
     }
   },
 
-  isSignIn: (userId: number) => checkToken(userId),
+  isSignIn: (userId: number) => {
+    consoleDebugLog('pass', 'adapter/AuthResource.ts', `isSignIn(${userId})`);
+
+    return checkToken(userId);
+  },
 
   getUserId: () => {
+    consoleDebugLog('pass', 'adapter/AuthResource.ts', 'getUserId');
+
     const token = getStorageItem(AUTH_KEY);
+    consoleDebugLog(
+      `token: ${token ?? '-'}`,
+      'adapter/AuthResource.ts',
+      'getUserId',
+    );
     if (!token) return null;
+
     const [_, userId] = pickSignInIdAndUserIdByToken(token);
+    consoleDebugLog(
+      `userId: ${userId}`,
+      'adapter/AuthResource.ts',
+      'getUserId',
+    );
     if (userId === 0) return null;
 
     return userId;
