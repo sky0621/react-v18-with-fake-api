@@ -4,15 +4,19 @@ import { User } from '../domain/user/entity';
 import { apiClient, apiGet } from '../external/api';
 import type { Alert } from '../types/alert';
 import { consoleDebugLog, createErrorLog } from '../app/log';
+import type { CreateUserRepository } from '../domain/user/repository';
 
-const createUserRepository = () => ({
+const createUserRepository: CreateUserRepository = () => ({
   getUser: async (token: string, id: number): Promise<Either<Alert, User>> => {
-    consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)('pass');
-    // FIXME: 9999999
+    consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)();
     try {
       const response = await apiGet(`users/${id}`, token, {
         headers: { abc: 'def' },
       });
+      consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)(
+        'response:',
+        response,
+      );
 
       if (!response.ok) {
         return left(
@@ -25,14 +29,25 @@ const createUserRepository = () => ({
       }
 
       const user = (await response.json()) as User;
+      consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)(
+        'user:',
+        user,
+      );
 
       return right(user);
     } catch (error: any) {
+      consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)(
+        'error:',
+        error,
+      );
+
       const httpErr = error as HTTPError;
       const errRes = httpErr.response;
       consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)(
-        'error: ',
-        error,
+        'httpErr:',
+        httpErr,
+        'errRes:',
+        errRes,
       );
 
       return left(
@@ -44,6 +59,8 @@ const createUserRepository = () => ({
       );
     }
 
+    consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)('not right');
+
     return left(
       createErrorLog('adapter/UserResource.ts#getUser', id, {
         kind: 'ApiError',
@@ -53,8 +70,9 @@ const createUserRepository = () => ({
   },
 
   getUsers: async (token: string): Promise<User[]> => {
-    console.log(token);
-    console.log('[adapter/UserRepository] getUsers called');
+    consoleDebugLog('adapter/UserResource.ts', `getUsers`)();
+    consoleDebugLog('adapter/UserResource.ts', `getUsers`)('token:', token);
+
     const response = await apiClient.get('users');
     const users = (await response.json()) as User[];
 
@@ -62,13 +80,19 @@ const createUserRepository = () => ({
   },
 
   updateUser: async (token: string, user: User): Promise<User> => {
-    console.log(token);
-    console.log(`[adapter/UserRepository] updateUser(${user.id}) called`);
+    consoleDebugLog('adapter/UserResource.ts', `updateUser`)();
+    consoleDebugLog('adapter/UserResource.ts', `updateUser`)(
+      'token:',
+      token,
+      'user:',
+      user,
+    );
+
     const res = await apiClient
       .put(`users/${user.id}`, { json: user })
       .json<User>();
 
-    console.log(res);
+    consoleDebugLog('adapter/UserResource.ts', `updateUser`)('res:', res);
 
     return res;
   },

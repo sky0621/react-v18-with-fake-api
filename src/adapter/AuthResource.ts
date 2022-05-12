@@ -8,6 +8,7 @@ import {
 import { AUTH_KEY } from '../app/config';
 import { consoleDebugLog, createWarnLog } from '../app/log';
 import type { Alert } from '../types/alert';
+import type { CreateAuthRepository } from '../domain/auth/repository';
 
 // for user1@example.com
 const token1 = '9fd0ccdc-b2c1-4a11-9dfe-119e92501aac';
@@ -45,9 +46,9 @@ const checkToken = (userId: number) => {
   return rUserId === userId;
 };
 
-const createAuthRepository = () => ({
+const createAuthRepository: CreateAuthRepository = () => ({
   signIn: (email: string, password: string): Either<Alert, Auth> => {
-    consoleDebugLog('adapter/AuthResource.ts', `signIn(${email})`)('pass');
+    consoleDebugLog('adapter/AuthResource.ts', `signIn(${email})`)();
 
     if (!email || !password) {
       return left(
@@ -81,7 +82,7 @@ const createAuthRepository = () => ({
   },
 
   signOut: (userId: number) => {
-    consoleDebugLog('adapter/AuthResource.ts', `signOut(${userId})`)('pass');
+    consoleDebugLog('adapter/AuthResource.ts', `signOut(${userId})`)();
 
     if (checkToken(userId)) {
       removeStorageItem(AUTH_KEY);
@@ -89,13 +90,13 @@ const createAuthRepository = () => ({
   },
 
   isSignIn: (userId: number) => {
-    consoleDebugLog('adapter/AuthResource.ts', `isSignIn(${userId})`)('pass');
+    consoleDebugLog('adapter/AuthResource.ts', `isSignIn(${userId})`)();
 
     return checkToken(userId);
   },
 
   getUserId: () => {
-    consoleDebugLog('adapter/AuthResource.ts', 'getUserId')('pass');
+    consoleDebugLog('adapter/AuthResource.ts', 'getUserId')();
 
     const token = getStorageItem(AUTH_KEY);
     consoleDebugLog(

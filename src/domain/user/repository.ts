@@ -9,4 +9,6 @@ export type UserRepository = {
   updateUser(token: string, user: User): Promise<User>;
 };
 
+export type CreateUserRepository = () => UserRepository;
+
 export const userRepository: UserRepository = createUserRepository();

@@ -10,4 +10,6 @@ export type AuthRepository = {
   getUserId(): number | null;
 };
 
+export type CreateAuthRepository = () => AuthRepository;
+
 export const authRepository: AuthRepository = createAuthRepository();
