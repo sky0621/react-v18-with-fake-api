@@ -50,30 +50,29 @@ export const consoleDebugLog =
     }
   };
 
-export const consoleDebugLog2 =
-  (filePath?: string | undefined, funcName?: string | undefined) =>
-  (...args: any) => {
-    if (!DEBUG) return;
-    const fp = filePath ?? '-';
-    const fn = funcName ?? '-';
+const wrap = (str: string | undefined) => (str ? `[ ${str} ]` : '');
+const withNl = (...strs: string[]) =>
+  strs.find((str) => str.length > 0) ? '\n' : '';
+const lineUp = (...strs: string[]) => strs.join('');
 
-    let log = '';
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    switch (args.length) {
-      case 0:
-        log = `[${fp}] [${fn}] PASS`;
-        break;
-      case 1:
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        if (typeof args[0] === 'string') {
-          log = `[${fp}] [${fn}] ${String(args)}`;
-        } else {
-          log = `[${fp}] [${fn}] ${String(args)}`;
-        }
-        break;
-      default:
-        break;
-    }
+export const createConsoleDebugLog = (
+  filePath?: string | undefined,
+  funcName?: string | undefined,
+  arg: any = 'PASS',
+) => {
+  const fp = wrap(filePath);
+  const fn = wrap(funcName);
+  const nl = withNl(fp, fn);
+  const base = lineUp(fp, fn, nl);
 
-    return log;
-  };
+  return `${base}${arg as string}`;
+};
+
+export const consoleDebugLog2 = (
+  filePath?: string | undefined,
+  funcName?: string | undefined,
+  ...args: any
+) => {
+  if (!DEBUG) return;
+  console.log(createConsoleDebugLog(filePath, funcName, args));
+};
