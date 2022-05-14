@@ -65,7 +65,14 @@ export const createConsoleDebugLog = (
   const nl = withNl(fp, fn);
   const base = lineUp(fp, fn, nl);
 
-  return `${base}${arg as string}`;
+  let a: string;
+  if (typeof arg === 'object') {
+    a = `${base}${JSON.stringify(arg)}`;
+  } else {
+    a = `${base}${arg as string}`;
+  }
+
+  return a;
 };
 
 export const consoleDebugLog2 = (

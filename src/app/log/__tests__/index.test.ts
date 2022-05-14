@@ -27,7 +27,16 @@ describe('app/log/index', () => {
       test('only string array args parameter', () => {
         expect(
           createConsoleDebugLog(undefined, undefined, ['one', 'two']),
-        ).toEqual('one,two');
+        ).toEqual('["one","two"]');
+      });
+      test('only object args parameter', () => {
+        expect(
+          createConsoleDebugLog(undefined, undefined, {
+            id: 1,
+            name: 'taro',
+            isAdmin: true,
+          }),
+        ).toEqual('{"id":1,"name":"taro","isAdmin":true}');
       });
     });
 
@@ -37,7 +46,16 @@ describe('app/log/index', () => {
           '[ pages/Home ][ getUsers ]\nPASS',
         );
       });
-      // FIXME:
+      test('filePath and arg parameters', () => {
+        expect(
+          createConsoleDebugLog('pages/Home', undefined, 'got response'),
+        ).toEqual('[ pages/Home ]\ngot response');
+      });
+      test('funcName and arg parameters', () => {
+        expect(
+          createConsoleDebugLog(undefined, 'getUsers', 'got response'),
+        ).toEqual('[ getUsers ]\ngot response');
+      });
     });
 
     describe('full parameters', () => {
@@ -46,7 +64,17 @@ describe('app/log/index', () => {
           createConsoleDebugLog('pages/Home', 'getUsers', 'got response'),
         ).toEqual('[ pages/Home ][ getUsers ]\ngot response');
       });
-      // FIXME:
+      test('filePath and funcName and object args parameters', () => {
+        expect(
+          createConsoleDebugLog('pages/Home', 'getUsers', {
+            id: 1,
+            name: 'taro',
+            isAdmin: true,
+          }),
+        ).toEqual(
+          '[ pages/Home ][ getUsers ]\n{"id":1,"name":"taro","isAdmin":true}',
+        );
+      });
     });
   });
 });
