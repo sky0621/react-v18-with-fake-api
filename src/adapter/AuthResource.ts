@@ -6,9 +6,11 @@ import {
   saveStorageItem,
 } from '../external/storage';
 import { AUTH_KEY } from '../app/config';
-import { consoleDebugLog, createWarnLog } from '../app/log';
+import { consoleLog, createWarnLog } from '../app/log';
 import type { Alert } from '../types/alert';
 import type { CreateAuthRepository } from '../domain/auth/repository';
+
+const filePath = 'adapter/AuthResource.ts';
 
 // for user1@example.com
 const token1 = '9fd0ccdc-b2c1-4a11-9dfe-119e92501aac';
@@ -48,7 +50,7 @@ const checkToken = (userId: number) => {
 
 const createAuthRepository: CreateAuthRepository = () => ({
   signIn: (email: string, password: string): Either<Alert, Auth> => {
-    consoleDebugLog('adapter/AuthResource.ts', `signIn(${email})`)();
+    consoleLog(filePath, `signIn(${email})`)();
 
     if (!email || !password) {
       return left(
@@ -82,7 +84,7 @@ const createAuthRepository: CreateAuthRepository = () => ({
   },
 
   signOut: (userId: number) => {
-    consoleDebugLog('adapter/AuthResource.ts', `signOut(${userId})`)();
+    consoleLog(filePath, `signOut(${userId})`)();
 
     if (checkToken(userId)) {
       removeStorageItem(AUTH_KEY);
@@ -90,26 +92,20 @@ const createAuthRepository: CreateAuthRepository = () => ({
   },
 
   isSignIn: (userId: number) => {
-    consoleDebugLog('adapter/AuthResource.ts', `isSignIn(${userId})`)();
+    consoleLog(filePath, `isSignIn(${userId})`)();
 
     return checkToken(userId);
   },
 
   getUserId: () => {
-    consoleDebugLog('adapter/AuthResource.ts', 'getUserId')();
+    consoleLog(filePath, 'getUserId')();
 
     const token = getStorageItem(AUTH_KEY);
-    consoleDebugLog(
-      'adapter/AuthResource.ts',
-      'getUserId',
-    )(`token: ${token ?? '-'}`);
+    consoleLog(filePath, 'getUserId')(`token: ${token ?? '-'}`);
     if (!token) return null;
 
     const [_, userId] = pickSignInIdAndUserIdByToken(token);
-    consoleDebugLog(
-      'adapter/AuthResource.ts',
-      'getUserId',
-    )(`userId: ${userId}`);
+    consoleLog(filePath, 'getUserId')(`userId: ${userId}`);
     if (userId === 0) return null;
 
     return userId;

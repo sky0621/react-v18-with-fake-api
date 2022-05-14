@@ -1,37 +1,35 @@
-import { createConsoleDebugLog } from '../index';
+import { createConsoleLog } from '../index';
 
 describe('app/log/index', () => {
   describe('createConsoleDebugLog', () => {
     describe('zero kind parameter', () => {
       test('no parameter', () => {
-        expect(createConsoleDebugLog()).toEqual('PASS');
+        expect(createConsoleLog()).toEqual('PASS');
       });
     });
 
     describe('one kind parameter', () => {
       test('only filePath parameter', () => {
-        expect(createConsoleDebugLog('pages/Home')).toEqual(
-          '[ pages/Home ]\nPASS',
-        );
+        expect(createConsoleLog('pages/Home')).toEqual('[ pages/Home ]\nPASS');
       });
       test('only funcName parameter', () => {
-        expect(createConsoleDebugLog(undefined, 'getUsers')).toEqual(
+        expect(createConsoleLog(undefined, 'getUsers')).toEqual(
           '[ getUsers ]\nPASS',
         );
       });
       test('only one string arg parameter', () => {
-        expect(
-          createConsoleDebugLog(undefined, undefined, 'got response'),
-        ).toEqual('got response');
+        expect(createConsoleLog(undefined, undefined, 'got response')).toEqual(
+          'got response',
+        );
       });
       test('only one string array arg parameter', () => {
-        expect(
-          createConsoleDebugLog(undefined, undefined, ['one', 'two']),
-        ).toEqual('["one","two"]');
+        expect(createConsoleLog(undefined, undefined, ['one', 'two'])).toEqual(
+          '["one","two"]',
+        );
       });
       test('only one object arg parameter', () => {
         expect(
-          createConsoleDebugLog(undefined, undefined, {
+          createConsoleLog(undefined, undefined, {
             id: 1,
             name: 'taro',
             isAdmin: true,
@@ -40,7 +38,7 @@ describe('app/log/index', () => {
       });
       test('only one string and one string array and one object args parameter', () => {
         expect(
-          createConsoleDebugLog(
+          createConsoleLog(
             undefined,
             undefined,
             'got response',
@@ -55,31 +53,31 @@ describe('app/log/index', () => {
 
     describe('two kind parameters', () => {
       test('filePath and funcName parameters', () => {
-        expect(createConsoleDebugLog('pages/Home', 'getUsers')).toEqual(
+        expect(createConsoleLog('pages/Home', 'getUsers')).toEqual(
           '[ pages/Home ][ getUsers ]\nPASS',
         );
       });
       test('filePath and arg parameters', () => {
         expect(
-          createConsoleDebugLog('pages/Home', undefined, 'got response'),
+          createConsoleLog('pages/Home', undefined, 'got response'),
         ).toEqual('[ pages/Home ]\ngot response');
       });
       test('funcName and arg parameters', () => {
-        expect(
-          createConsoleDebugLog(undefined, 'getUsers', 'got response'),
-        ).toEqual('[ getUsers ]\ngot response');
+        expect(createConsoleLog(undefined, 'getUsers', 'got response')).toEqual(
+          '[ getUsers ]\ngot response',
+        );
       });
     });
 
     describe('full kind parameters', () => {
       test('filePath and funcName and string arg parameters', () => {
         expect(
-          createConsoleDebugLog('pages/Home', 'getUsers', 'got response'),
+          createConsoleLog('pages/Home', 'getUsers', 'got response'),
         ).toEqual('[ pages/Home ][ getUsers ]\ngot response');
       });
       test('filePath and funcName and object args parameters', () => {
         expect(
-          createConsoleDebugLog('pages/Home', 'getUsers', {
+          createConsoleLog('pages/Home', 'getUsers', {
             id: 1,
             name: 'taro',
             isAdmin: true,
@@ -90,7 +88,7 @@ describe('app/log/index', () => {
       });
       test('only one string and one string array and one object args parameter', () => {
         expect(
-          createConsoleDebugLog(
+          createConsoleLog(
             'pages/Home',
             'getUsers',
             'got response',

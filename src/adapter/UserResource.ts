@@ -3,20 +3,19 @@ import { HTTPError } from 'ky';
 import { User } from '../domain/user/entity';
 import { apiClient, apiGet } from '../external/api';
 import type { Alert } from '../types/alert';
-import { consoleDebugLog, consoleLog, createErrorLog } from '../app/log';
+import { consoleLog, createErrorLog } from '../app/log';
 import type { CreateUserRepository } from '../domain/user/repository';
+
+const filePath = 'adapter/UserResource.ts';
 
 const createUserRepository: CreateUserRepository = () => ({
   getUser: async (token: string, id: number): Promise<Either<Alert, User>> => {
-    consoleLog('adapter/UserResource.ts', `getUser(${id})`);
+    consoleLog(filePath, `getUser(${id})`)();
     try {
       const response = await apiGet(`users/${id}`, token, {
         headers: { abc: 'def' },
       });
-      consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)(
-        'response:',
-        response,
-      );
+      consoleLog(filePath, `getUser(${id})`)('response:', response);
 
       if (!response.ok) {
         return left(
@@ -29,21 +28,15 @@ const createUserRepository: CreateUserRepository = () => ({
       }
 
       const user = (await response.json()) as User;
-      consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)(
-        'user:',
-        user,
-      );
+      consoleLog(filePath, `getUser(${id})`)('user:', user);
 
       return right(user);
     } catch (error: any) {
-      consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)(
-        'error:',
-        error,
-      );
+      consoleLog(filePath, `getUser(${id})`)('error:', error);
 
       const httpErr = error as HTTPError;
       const errRes = httpErr.response;
-      consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)(
+      consoleLog(filePath, `getUser(${id})`)(
         'httpErr:',
         httpErr,
         'errRes:',
@@ -59,7 +52,7 @@ const createUserRepository: CreateUserRepository = () => ({
       );
     }
 
-    consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)('not right');
+    consoleLog(filePath, `getUser(${id})`)('not right');
 
     return left(
       createErrorLog('adapter/UserResource.ts#getUser', id, {
@@ -70,8 +63,8 @@ const createUserRepository: CreateUserRepository = () => ({
   },
 
   getUsers: async (token: string): Promise<User[]> => {
-    consoleDebugLog('adapter/UserResource.ts', `getUsers`)();
-    consoleDebugLog('adapter/UserResource.ts', `getUsers`)('token:', token);
+    consoleLog(filePath, `getUsers`)();
+    consoleLog(filePath, `getUsers`)('token:', token);
 
     const response = await apiClient.get('users');
     const users = (await response.json()) as User[];
@@ -80,19 +73,14 @@ const createUserRepository: CreateUserRepository = () => ({
   },
 
   updateUser: async (token: string, user: User): Promise<User> => {
-    consoleDebugLog('adapter/UserResource.ts', `updateUser`)();
-    consoleDebugLog('adapter/UserResource.ts', `updateUser`)(
-      'token:',
-      token,
-      'user:',
-      user,
-    );
+    consoleLog(filePath, `updateUser`)();
+    consoleLog(filePath, `updateUser`)('token:', token, 'user:', user);
 
     const res = await apiClient
       .put(`users/${user.id}`, { json: user })
       .json<User>();
 
-    consoleDebugLog('adapter/UserResource.ts', `updateUser`)('res:', res);
+    consoleLog(filePath, `updateUser`)('res:', res);
 
     return res;
   },

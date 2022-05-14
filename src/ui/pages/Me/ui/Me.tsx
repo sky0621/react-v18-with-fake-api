@@ -6,8 +6,10 @@ import { useEditMeSubmit, useInputs, useMe, useMeForm } from '../lib';
 import InputGroup from '../../../molecules/InputGroup';
 import InputFace from '../../../molecules/InputFace';
 import BriefNotification from '../../../organisms/BriefNotification/ui/BriefNotification';
+import { consoleLog } from '../../../../app/log';
 
 const Me: React.FC = () => {
+  consoleLog('pages/Me')();
   const { handleSubmit, control } = useMeForm();
   const { user, alert } = useMe();
   const { baseInputs, addressInputs, companyInputs } = useInputs(user);

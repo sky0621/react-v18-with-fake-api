@@ -2,7 +2,7 @@ import React from 'react';
 import { consoleLog } from '../../app/log';
 
 const HomePage: React.FC = () => {
-  consoleLog('pages/Home');
+  consoleLog('pages/Home')();
 
   return (
     <>

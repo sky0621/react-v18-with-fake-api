@@ -2,6 +2,7 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 import { Avatar, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import { consoleLog } from '../../app/log';
 
 type Props = {
   avatarIcon: React.ReactNode;
@@ -10,6 +11,7 @@ type Props = {
 };
 
 const InputFace: React.FC<Props> = (props) => {
+  consoleLog('molecules/InputFace')();
   const { avatarIcon, titleLabel, submitLabel } = props;
 
   return (

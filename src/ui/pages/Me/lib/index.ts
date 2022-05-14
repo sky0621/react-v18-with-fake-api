@@ -13,7 +13,9 @@ import { User } from '../../../../domain/user/entity';
 import separateZip from '../../../../domain/user/service';
 import updateMyInfo from '../../../../usecase/update-my-info';
 import type { Alert } from '../../../../types/alert';
-import { consoleDebugLog, createErrorLog } from '../../../../app/log';
+import { consoleLog, createErrorLog } from '../../../../app/log';
+
+const filePath = 'pages/Me/lib/index.ts';
 
 export type UseMeFormResponse = Pick<
   ReturnType<typeof useForm>,
@@ -24,7 +26,7 @@ export type UseMeFormResponse = Pick<
  * ユーザー情報フォームに関するカスタムフック
  */
 export const useMeForm = (): UseMeFormResponse => {
-  consoleDebugLog('pages/Me/lib/index.ts', 'useMeForm')('pass');
+  consoleLog(filePath, 'useMeForm')();
 
   const { handleSubmit, control } = useForm<UserInput>({
     resolver: yupResolver(UserInputScheme),
@@ -40,7 +42,7 @@ export const useMeForm = (): UseMeFormResponse => {
  * ユーザー情報取得に関するカスタムフック
  */
 export const useMe = () => {
-  consoleDebugLog('pages/Me/lib/index.ts', 'useMe')('pass');
+  consoleLog(filePath, 'useMe')();
 
   // オンメモリキャッシュから（サインイン時にセットした）トークンとユーザーIDを取得
   const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
@@ -88,11 +90,11 @@ export const useMe = () => {
  * ユーザー情報表示フォームの個別要素の初期化に関するカスタムフック
  */
 export const useInputs = (user: User | undefined) => {
-  consoleDebugLog('pages/Me/lib/index.ts', 'useInputs')('pass');
+  consoleLog(filePath, 'useInputs')();
 
   const baseInputs = useMemo(() => {
     if (!user) return [];
-    consoleDebugLog('pages/Me/lib/index.ts', 'useInputs')('create baseInputs');
+    consoleLog(filePath, 'useInputs')('create baseInputs');
 
     return [
       {
@@ -127,10 +129,7 @@ export const useInputs = (user: User | undefined) => {
 
   const addressInputs = useMemo(() => {
     if (!user) return [];
-    consoleDebugLog(
-      'pages/Me/lib/index.ts',
-      'useInputs',
-    )('create addressInputs');
+    consoleLog(filePath, 'useInputs')('create addressInputs');
 
     return [
       {
@@ -177,10 +176,7 @@ export const useInputs = (user: User | undefined) => {
 
   const companyInputs = useMemo(() => {
     if (!user) return [];
-    consoleDebugLog(
-      'pages/Me/lib/index.ts',
-      'useInputs',
-    )('create companyInputs');
+    consoleLog(filePath, 'useInputs')('create companyInputs');
 
     return [
       {
@@ -212,7 +208,7 @@ export const useInputs = (user: User | undefined) => {
  * ユーザー情報編集処理に関するカスタムフック
  */
 export const useEditMeSubmit = (userId: number) => {
-  consoleDebugLog('pages/Me/lib/index.ts', 'useEditMeSubmit')('pass');
+  consoleLog(filePath, 'useEditMeSubmit')();
 
   // ユーザー通知アラートのオンオフ切り替え用
   //  const [alert, setAlert] = useState(null as Alert | null);
@@ -234,8 +230,9 @@ export const useEditMeSubmit = (userId: number) => {
 
     // ユーザー編集ユースケースをコール
     const res = mutation.mutate(toUser(userId, data));
-    consoleDebugLog('pages/Me/lib/index.ts', 'useEditMeSubmit')(res);
+    consoleLog(filePath, 'useEditMeSubmit')(res);
 
+    // FIXME:
     //    if (isLeft(eAuth)) {
     //      setAlert(eAuth.left);
     //    }
