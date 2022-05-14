@@ -3,12 +3,12 @@ import { HTTPError } from 'ky';
 import { User } from '../domain/user/entity';
 import { apiClient, apiGet } from '../external/api';
 import type { Alert } from '../types/alert';
-import { consoleDebugLog, createErrorLog } from '../app/log';
+import { consoleDebugLog, consoleLog, createErrorLog } from '../app/log';
 import type { CreateUserRepository } from '../domain/user/repository';
 
 const createUserRepository: CreateUserRepository = () => ({
   getUser: async (token: string, id: number): Promise<Either<Alert, User>> => {
-    consoleDebugLog('adapter/UserResource.ts', `getUser(${id})`)();
+    consoleLog('adapter/UserResource.ts', `getUser(${id})`);
     try {
       const response = await apiGet(`users/${id}`, token, {
         headers: { abc: 'def' },

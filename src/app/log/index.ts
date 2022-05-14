@@ -58,27 +58,25 @@ const lineUp = (...strs: string[]) => strs.join('');
 export const createConsoleDebugLog = (
   filePath?: string | undefined,
   funcName?: string | undefined,
-  arg: any = 'PASS',
+  ...args: any
 ) => {
   const fp = wrap(filePath);
   const fn = wrap(funcName);
-  const nl = withNl(fp, fn);
-  const base = lineUp(fp, fn, nl);
+  const base = lineUp(fp, fn, withNl(fp, fn));
 
-  let a: string;
-  if (typeof arg === 'object') {
-    a = `${base}${JSON.stringify(arg)}`;
-  } else {
-    a = `${base}${arg as string}`;
-  }
+  if ((args as any[]).length === 0) return `${base}PASS`;
 
-  return a;
+  const argLogs = (args as any[]).map((arg: unknown) =>
+    typeof arg === 'object' ? JSON.stringify(arg) : (arg as string),
+  );
+
+  return `${base}${argLogs.join('\n')}`;
 };
 
-export const consoleDebugLog2 = (
+export const consoleLog = (
   filePath?: string | undefined,
   funcName?: string | undefined,
-  ...args: any
+  args?: any[],
 ) => {
   if (!DEBUG) return;
   console.log(createConsoleDebugLog(filePath, funcName, args));

@@ -1,8 +1,8 @@
 import React from 'react';
-import { consoleDebugLog2 } from '../../app/log';
+import { consoleLog } from '../../app/log';
 
 const HomePage: React.FC = () => {
-  consoleDebugLog2('pages/Home', '')('test');
+  consoleLog('pages/Home');
 
   return (
     <>
