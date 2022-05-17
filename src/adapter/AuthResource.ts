@@ -6,7 +6,7 @@ import {
   saveStorageItem,
 } from '../external/storage';
 import { AUTH_KEY } from '../app/config';
-import { consoleLog, createWarnLog } from '../app/log';
+import { createConsoleLog, createWarnLog } from '../app/log';
 import type { Alert } from '../types/alert';
 import type { CreateAuthRepository } from '../domain/auth/repository';
 
@@ -50,7 +50,7 @@ const checkToken = (userId: number) => {
 
 const createAuthRepository: CreateAuthRepository = () => ({
   signIn: (email: string, password: string): Either<Alert, Auth> => {
-    consoleLog(filePath, `signIn(${email})`)();
+    console.log(createConsoleLog(filePath, `signIn(${email})`)());
 
     if (!email || !password) {
       return left(
@@ -84,7 +84,7 @@ const createAuthRepository: CreateAuthRepository = () => ({
   },
 
   signOut: (userId: number) => {
-    consoleLog(filePath, `signOut(${userId})`)();
+    console.log(createConsoleLog(filePath, `signOut(${userId})`)());
 
     if (checkToken(userId)) {
       removeStorageItem(AUTH_KEY);
@@ -92,20 +92,22 @@ const createAuthRepository: CreateAuthRepository = () => ({
   },
 
   isSignIn: (userId: number) => {
-    consoleLog(filePath, `isSignIn(${userId})`)();
+    console.log(createConsoleLog(filePath, `isSignIn(${userId})`)());
 
     return checkToken(userId);
   },
 
   getUserId: () => {
-    consoleLog(filePath, 'getUserId')();
+    console.log(createConsoleLog(filePath, 'getUserId')());
 
     const token = getStorageItem(AUTH_KEY);
-    consoleLog(filePath, 'getUserId')(`token: ${token ?? '-'}`);
+    console.log(
+      createConsoleLog(filePath, 'getUserId')(`token: ${token ?? '-'}`),
+    );
     if (!token) return null;
 
     const [_, userId] = pickSignInIdAndUserIdByToken(token);
-    consoleLog(filePath, 'getUserId')(`userId: ${userId}`);
+    console.log(createConsoleLog(filePath, 'getUserId')(`userId: ${userId}`));
     if (userId === 0) return null;
 
     return userId;

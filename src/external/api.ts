@@ -2,6 +2,7 @@ import ky, { Options } from 'ky';
 import { QueryClient } from 'react-query';
 import deepmerge from 'deepmerge';
 import { API_URL } from '../app/config';
+import { consoleLog } from '../app/log';
 
 /*
  * APIクライアント
@@ -17,14 +18,12 @@ export const apiClient = ky.create({
   hooks: {
     afterResponse: [
       (request, options, response) => {
-        console.log(request);
-        console.log(options);
-        console.log(response);
+        consoleLog()(request, options, response);
       },
     ],
     beforeError: [
       (error) => {
-        console.log(error);
+        consoleLog()(error);
 
         return error;
       },

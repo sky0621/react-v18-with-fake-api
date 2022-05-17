@@ -45,20 +45,15 @@ export const createConsoleLog = (
   const fn = wrap(funcName);
   const base = lineUp(fp, fn, withNl(fp, fn));
 
-  return (args: any[]) => {
-    if (args.length === 0) return `${base}PASS`;
+  return (...args: any) => {
+    if (!DEBUG) return undefined;
+    const argArray = args as any[];
+    if (argArray.length === 0) return `${base}PASS`;
 
-    const argLogs = args.map((arg: unknown) =>
+    const argLogs = argArray.map((arg: unknown) =>
       typeof arg === 'object' ? JSON.stringify(arg) : (arg as string),
     );
 
     return `${base}${argLogs.join('\n')}`;
   };
 };
-
-export const consoleLog =
-  (filePath?: string | undefined, funcName?: string | undefined) =>
-  (...args: any) => {
-    if (!DEBUG) return;
-    console.log(createConsoleLog(filePath, funcName)(args as any[]));
-  };

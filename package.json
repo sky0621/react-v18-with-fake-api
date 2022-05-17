@@ -2,6 +2,42 @@
   "name": "react-ts-template",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "PORT=3010 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "ut": "jest",
+    "fix": "npm run -s format && npm run -s lint:fix",
+    "format": "prettier --write --loglevel=warn 'src/**/*.{js,jsx,ts,tsx,gql,graphql,json}'",
+    "lint": "npm run -s lint:style; npm run -s lint:es",
+    "lint:fix": "npm run -s lint:style:fix && npm run -s lint:es:fix",
+    "lint:es": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint:es:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint:conflict": "eslint-config-prettier 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint:style": "stylelint 'src/**/*.{css,less,sass,scss}'",
+    "lint:style:fix": "stylelint --fix 'src/**/*.{css,less,sass,scss}'",
+    "preinstall": "typesync || :",
+    "scaffdog:create": "npx scaffdog init",
+    "scaffdog:gen": "npx scaffdog generate"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -39,42 +75,6 @@
     "typescript": "^4.6.3",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
-  },
-  "scripts": {
-    "start": "PORT=3010 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "ut": "jest",
-    "fix": "npm run -s format && npm run -s lint:fix",
-    "format": "prettier --write --loglevel=warn 'src/**/*.{js,jsx,ts,tsx,gql,graphql,json}'",
-    "lint": "npm run -s lint:style; npm run -s lint:es",
-    "lint:fix": "npm run -s lint:style:fix && npm run -s lint:es:fix",
-    "lint:es": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
-    "lint:es:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx}'",
-    "lint:conflict": "eslint-config-prettier 'src/**/*.{js,jsx,ts,tsx}'",
-    "lint:style": "stylelint 'src/**/*.{css,less,sass,scss}'",
-    "lint:style:fix": "stylelint --fix 'src/**/*.{css,less,sass,scss}'",
-    "preinstall": "typesync || :",
-    "scaffdog:create": "npx scaffdog init",
-    "scaffdog:gen": "npx scaffdog generate"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   },
   "devDependencies": {
     "@types/compose-function": "^0.0.30",
