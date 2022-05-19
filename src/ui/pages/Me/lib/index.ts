@@ -13,9 +13,9 @@ import { User } from '../../../../domain/user/entity';
 import separateZip from '../../../../domain/user/service';
 import updateMyInfo from '../../../../usecase/update-my-info';
 import type { Alert } from '../../../../types/alert';
-import { consoleLog, createErrorLog } from '../../../../app/log';
+import { createConsoleLog, createErrorLog } from '../../../../app/log';
 
-const filePath = 'pages/Me/lib/index.ts';
+const fp = 'ui/pages/Me/lib/index.ts';
 
 export type UseMeFormResponse = Pick<
   ReturnType<typeof useForm>,
@@ -26,7 +26,7 @@ export type UseMeFormResponse = Pick<
  * ユーザー情報フォームに関するカスタムフック
  */
 export const useMeForm = (): UseMeFormResponse => {
-  consoleLog(filePath, 'useMeForm')();
+  console.log(createConsoleLog(fp, 'useMeForm')());
 
   const { handleSubmit, control } = useForm<UserInput>({
     resolver: yupResolver(UserInputScheme),
@@ -42,7 +42,8 @@ export const useMeForm = (): UseMeFormResponse => {
  * ユーザー情報取得に関するカスタムフック
  */
 export const useMe = () => {
-  consoleLog(filePath, 'useMe')();
+  const fn = 'useMe';
+  console.log(createConsoleLog(fp, fn)());
 
   // オンメモリキャッシュから（サインイン時にセットした）トークンとユーザーIDを取得
   const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
@@ -51,11 +52,14 @@ export const useMe = () => {
   const { data } = useQuery([userId, 'user'], () => showMyInfo(token, userId), {
     enabled: !!userId,
   });
+  console.log(createConsoleLog(fp, fn)('data:', data));
 
   // ユーザー通知アラートのオンオフ切り替え用
   const [alert, setAlert] = useState(null as Alert | null);
 
   if (!data) {
+    console.log(createConsoleLog(fp, fn)('no data'));
+
     setAlert(
       createErrorLog('pages/Me/lib#useMe', userId, {
         kind: 'ApiError',
@@ -70,6 +74,8 @@ export const useMe = () => {
   }
 
   if (isLeft(data)) {
+    console.log(createConsoleLog(fp, fn)('error data'));
+
     setAlert(data.left);
 
     return {
@@ -90,11 +96,12 @@ export const useMe = () => {
  * ユーザー情報表示フォームの個別要素の初期化に関するカスタムフック
  */
 export const useInputs = (user: User | undefined) => {
-  consoleLog(filePath, 'useInputs')();
+  const fn = 'useInputs';
+  console.log(createConsoleLog(fp, fn)());
 
   const baseInputs = useMemo(() => {
     if (!user) return [];
-    consoleLog(filePath, 'useInputs')('create baseInputs');
+    console.log(createConsoleLog(fp, fn)('create baseInputs'));
 
     return [
       {
@@ -129,7 +136,7 @@ export const useInputs = (user: User | undefined) => {
 
   const addressInputs = useMemo(() => {
     if (!user) return [];
-    consoleLog(filePath, 'useInputs')('create addressInputs');
+    console.log(createConsoleLog(fp, fn)('create addressInputs'));
 
     return [
       {
@@ -176,7 +183,7 @@ export const useInputs = (user: User | undefined) => {
 
   const companyInputs = useMemo(() => {
     if (!user) return [];
-    consoleLog(filePath, 'useInputs')('create companyInputs');
+    console.log(createConsoleLog(fp, fn)('create companyInputs'));
 
     return [
       {
@@ -208,7 +215,8 @@ export const useInputs = (user: User | undefined) => {
  * ユーザー情報編集処理に関するカスタムフック
  */
 export const useEditMeSubmit = (userId: number) => {
-  consoleLog(filePath, 'useEditMeSubmit')();
+  const fn = 'useEditMeSubmit';
+  console.log(createConsoleLog(fp, fn)());
 
   // ユーザー通知アラートのオンオフ切り替え用
   //  const [alert, setAlert] = useState(null as Alert | null);
@@ -230,7 +238,7 @@ export const useEditMeSubmit = (userId: number) => {
 
     // ユーザー編集ユースケースをコール
     const res = mutation.mutate(toUser(userId, data));
-    consoleLog(filePath, 'useEditMeSubmit')(res);
+    console.log(createConsoleLog(fp, fn)(res));
 
     // FIXME:
     //    if (isLeft(eAuth)) {

@@ -1,8 +1,10 @@
 import React from 'react';
-import { consoleLog } from '../../app/log';
+import { createConsoleLog } from '../../app/log';
+
+const fp = 'ui/pages/Home.tsx';
 
 const HomePage: React.FC = () => {
-  consoleLog('pages/Home')();
+  console.log(createConsoleLog(fp)());
 
   return (
     <>

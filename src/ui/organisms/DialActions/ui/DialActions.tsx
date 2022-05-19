@@ -1,10 +1,13 @@
 import React from 'react';
 import { SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material';
 import useDialActions from '../lib';
-import { consoleLog } from '../../../../app/log';
+import { createConsoleLog } from '../../../../app/log';
+
+const fp = 'ui/organisms/DialActions/ui/DialActions.tsx';
 
 const DialActions: React.FC = () => {
-  consoleLog('organisms/DialActions')();
+  console.log(createConsoleLog(fp)());
+
   const { actions } = useDialActions();
 
   return (

@@ -7,7 +7,9 @@ import Tab from '../../../atoms/Tab';
 import { TabAttribute } from '../model';
 import useTabMenu from '../lib';
 import DialActions from '../../DialActions/ui/DialActions';
-import { consoleLog } from '../../../../app/log';
+import { createConsoleLog } from '../../../../app/log';
+
+const fp = 'ui/organisms/TabMenu/ui/TabMenu.tsx';
 
 type Props = {
   position: NonNullable<ComponentProps<typeof AppBar>['position']>;
@@ -15,7 +17,8 @@ type Props = {
 };
 
 const TabMenu: React.FC<Props> = (props) => {
-  consoleLog('organisms/TabMenu')();
+  console.log(createConsoleLog(fp)());
+
   const { position, tabAttributes } = props;
   const { index, handleChange } = useTabMenu();
 

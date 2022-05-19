@@ -2,7 +2,7 @@ import ky, { Options } from 'ky';
 import { QueryClient } from 'react-query';
 import deepmerge from 'deepmerge';
 import { API_URL } from '../app/config';
-import { consoleLog } from '../app/log';
+import { createConsoleLog } from '../app/log';
 
 /*
  * APIクライアント
@@ -18,12 +18,12 @@ export const apiClient = ky.create({
   hooks: {
     afterResponse: [
       (request, options, response) => {
-        consoleLog()(request, options, response);
+        console.log(createConsoleLog()(request, options, response));
       },
     ],
     beforeError: [
       (error) => {
-        consoleLog()(error);
+        console.log(createConsoleLog()(error));
 
         return error;
       },
@@ -44,6 +44,23 @@ export const apiGet = (url: string, token: string, options?: Options) =>
       options || {},
     ),
   );
+
+export function apiPut<T>(url: string, token: string, options?: Options) {
+  return apiClient
+    .put(
+      url,
+      deepmerge(
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        },
+        options || {},
+      ),
+    )
+    .json<T>();
+}
 
 /*
  * React Queryクライアント

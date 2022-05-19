@@ -1,18 +1,19 @@
 import { Either, left, right } from 'fp-ts/Either';
 import { HTTPError } from 'ky';
 import { User } from '../domain/user/entity';
-import { apiClient, apiGet } from '../external/api';
+import { apiGet, apiPut } from '../external/api';
 import type { Alert } from '../types/alert';
 import { createConsoleLog, createErrorLog } from '../app/log';
 import type { CreateUserRepository } from '../domain/user/repository';
 
-const filePath = 'adapter/UserResource.ts';
+const fp = 'adapter/UserResource.ts';
 
 const createUserRepository: CreateUserRepository = () => ({
   getUser: async (token: string, id: number): Promise<Either<Alert, User>> => {
-    console.log(
-      createConsoleLog(filePath, `getUser(${id})`)('PASS', 'token:', token),
-    );
+    const fn = `getUser(${id})`;
+    const cLog = createConsoleLog(fp, fn);
+    console.log(cLog());
+
     try {
       const response = await apiGet(`users/99`, token, {
         headers: { abc: 'def' },
@@ -20,7 +21,7 @@ const createUserRepository: CreateUserRepository = () => ({
 
       if (!response.ok) {
         return left(
-          createErrorLog('adapter/UserResource.ts#getUser', id, {
+          createErrorLog(`${fp}#${fn}`, id, {
             kind: 'ApiError',
             message: 'error occurred',
             status: { code: response.status, text: response.statusText },
@@ -29,36 +30,20 @@ const createUserRepository: CreateUserRepository = () => ({
       }
 
       const user = (await response.json()) as User;
-      console.log(
-        createConsoleLog(filePath, `getUser(${id})`)(
-          'api.response.json:',
-          user,
-        ),
-      );
+      console.log(cLog('api.response.json:', user));
 
       return right(user);
     } catch (error: any) {
-      console.log(
-        createConsoleLog(filePath, `getUser(${id})`)(
-          'api.response.error:',
-          error,
-        ),
-      );
+      console.log(cLog('api.response.error:', error));
 
       const httpErr = error as HTTPError;
       const errRes = httpErr.response;
       console.log(
-        createConsoleLog(filePath, `getUser(${id})`)(
-          'api.response.httperror:',
-          'httpErr:',
-          httpErr,
-          'errRes:',
-          errRes,
-        ),
+        cLog('api.response.httperror:', 'httpErr:', httpErr, 'errRes:', errRes),
       );
 
       return left(
-        createErrorLog('adapter/UserResource.ts#getUser', id, {
+        createErrorLog(`${fp}#${fn}`, id, {
           kind: 'ApiError',
           message: httpErr.message,
           status: { code: errRes.status, text: errRes.statusText },
@@ -66,10 +51,10 @@ const createUserRepository: CreateUserRepository = () => ({
       );
     }
 
-    console.log(createConsoleLog(filePath, `getUser(${id})`)('not right'));
+    console.log(cLog('not right'));
 
     return left(
-      createErrorLog('adapter/UserResource.ts#getUser', id, {
+      createErrorLog(`${fp}#${fn}`, id, {
         kind: 'ApiError',
         message: 'error occurred',
       }),
@@ -77,25 +62,19 @@ const createUserRepository: CreateUserRepository = () => ({
   },
 
   getUsers: async (token: string): Promise<User[]> => {
-    console.log(
-      createConsoleLog(filePath, `getUsers`)('PASS', 'token:', token),
-    );
+    console.log(createConsoleLog(fp, `getUsers`)());
 
-    const response = await apiClient.get('users');
+    const response = await apiGet('users', token);
     const users = (await response.json()) as User[];
 
     return users;
   },
 
   updateUser: async (token: string, user: User): Promise<User> => {
-    console.log(filePath, `updateUser`)();
-    console.log(filePath, `updateUser`)('token:', token, 'user:', user);
+    const fn = 'updateUser';
+    console.log(createConsoleLog(fp, fn)('PASS', 'parameter.user:', user));
 
-    const res = await apiClient
-      .put(`users/${user.id}`, { json: user })
-      .json<User>();
-
-    console.log(filePath, `updateUser`)('res:', res);
+    const res = await apiPut<User>(`users/${user.id}`, token, { json: user });
 
     return res;
   },

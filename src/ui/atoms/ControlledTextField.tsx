@@ -4,7 +4,9 @@ import React from 'react';
 import type { Control } from 'react-hook-form/dist/types/form';
 import type { RegisterOptions } from 'react-hook-form/dist/types/validator';
 import type { FieldPath } from 'react-hook-form/dist/types';
-import { consoleLog } from '../../app/log';
+import { createConsoleLog } from '../../app/log';
+
+const fp = 'ui/atoms/ControlledTextField.tsx';
 
 type Props = {
   control: Control<FieldValues>;
@@ -19,7 +21,8 @@ type Props = {
 };
 
 const ControlledTextField: React.FC<Props> = (props) => {
-  consoleLog('atoms/ControlledTextField')();
+  console.log(createConsoleLog(fp)());
+
   const { control, name, label, defaultValue, rules } = props;
 
   return (

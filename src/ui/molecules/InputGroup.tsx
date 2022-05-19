@@ -7,7 +7,9 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import ControlledTextField from '../atoms/ControlledTextField';
 import uniqueId from '../../domain/calc/id';
-import { consoleLog } from '../../app/log';
+import { createConsoleLog } from '../../app/log';
+
+const fp = 'ui/molecules/InputGroup.tsx';
 
 export type Input = {
   name: string;
@@ -27,7 +29,8 @@ type Props = {
 };
 
 const InputGroup: React.FC<Props> = (props) => {
-  consoleLog('molecules/InputGroup')();
+  console.log(createConsoleLog(fp)());
+
   const { control, inputs } = props;
 
   return (

@@ -12,10 +12,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Controller } from 'react-hook-form';
 import BriefNotification from '../../../organisms/BriefNotification/ui/BriefNotification';
 import { useSignInForm, useSignInSubmit } from '../lib';
-import { consoleLog } from '../../../../app/log';
+import { createConsoleLog } from '../../../../app/log';
+
+const fp = 'ui/pages/SignIn/ui/SignIn.tsx';
 
 const SignIn: React.FC = () => {
-  consoleLog('pages/SignIn')();
+  console.log(createConsoleLog(fp)());
+
   const { handleSubmit, control, errors } = useSignInForm();
   const { handleSignIn, alert } = useSignInSubmit();
 

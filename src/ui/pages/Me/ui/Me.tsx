@@ -6,10 +6,13 @@ import { useEditMeSubmit, useInputs, useMe, useMeForm } from '../lib';
 import InputGroup from '../../../molecules/InputGroup';
 import InputFace from '../../../molecules/InputFace';
 import BriefNotification from '../../../organisms/BriefNotification/ui/BriefNotification';
-import { consoleLog } from '../../../../app/log';
+import { createConsoleLog } from '../../../../app/log';
+
+const fp = 'ui/pages/Me/ui/Me.tsx';
 
 const Me: React.FC = () => {
-  consoleLog('pages/Me')();
+  console.log(createConsoleLog(fp)());
+
   const { handleSubmit, control } = useMeForm();
   const { user, alert } = useMe();
   const { baseInputs, addressInputs, companyInputs } = useInputs(user);
