@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import NotFound from './NotFound';
-import HomePage from './Home';
-import AuthTemplate from '../templates/Auth';
-import Me from './Me/ui/Me';
-import SignIn from './SignIn/ui/SignIn';
+import NotFound from './pages/NotFound';
+import HomePage from './pages/Home';
+import AuthTemplate from './templates/Auth';
+import Me from './pages/Me/ui/Me';
+import SignIn from './pages/SignIn/ui/SignIn';
 
 const Router = () => (
   <Routes>

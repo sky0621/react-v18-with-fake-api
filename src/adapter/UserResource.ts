@@ -15,7 +15,7 @@ const createUserRepository: CreateUserRepository = () => ({
     console.log(cLog());
 
     try {
-      const response = await apiGet(`users/99`, token, {
+      const response = await apiGet(`users/${id}`, token, {
         headers: { abc: 'def' },
       });
 

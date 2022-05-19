@@ -3,7 +3,7 @@ import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import Router from '../ui/pages/Router';
+import Router from '../ui/Router';
 import Loading from '../ui/atoms/Loading';
 import { queryClient } from '../external/api';
 
