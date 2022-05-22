@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
-import { BaseSyntheticEvent, useMemo, useState } from 'react';
+import { BaseSyntheticEvent, useMemo } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { isLeft } from 'fp-ts/Either';
@@ -12,8 +12,7 @@ import { Input } from '../../../molecules/InputGroup';
 import { User } from '../../../../domain/user/entity';
 import separateZip from '../../../../domain/user/service';
 import updateMyInfo from '../../../../usecase/update-my-info';
-import type { Alert } from '../../../../types/alert';
-import { createConsoleLog, createErrorLog } from '../../../../app/log';
+import { createConsoleLog } from '../../../../app/log';
 
 const fp = 'ui/pages/Me/lib/index.ts';
 
@@ -54,41 +53,23 @@ export const useMe = () => {
   });
   console.log(createConsoleLog(fp, fn)('data:', data));
 
-  // ユーザー通知アラートのオンオフ切り替え用
-  const [alert, setAlert] = useState(null as Alert | null);
-
   if (!data) {
     console.log(createConsoleLog(fp, fn)('no data'));
 
-    setAlert(
-      createErrorLog('pages/Me/lib#useMe', userId, {
-        kind: 'ApiError',
-        message: 'user is none',
-      }),
-    );
-
-    return {
-      undefined,
-      alert,
-    };
+    throw new Error('user is none');
   }
 
   if (isLeft(data)) {
-    console.log(createConsoleLog(fp, fn)('error data'));
+    console.log(createConsoleLog(fp, fn)(data.left));
 
-    setAlert(data.left);
-
-    return {
-      undefined,
-      alert,
-    };
+    // FIXME: status code に応じたメッセージ振り分け、ないし、Errorの拡張！
+    throw new Error('error occurred');
   }
 
   const user = data.right;
 
   return {
     user,
-    alert,
   };
 };
 

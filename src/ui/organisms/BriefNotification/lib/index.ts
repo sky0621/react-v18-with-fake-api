@@ -15,7 +15,7 @@ const useBriefNotification = (log: Log) => {
 
   useEffect(() => {
     setOpen(true);
-  }, [log]);
+  }, []);
 
   const handleClose = (e: Event | SyntheticEvent) => {
     if (e) e.preventDefault();
