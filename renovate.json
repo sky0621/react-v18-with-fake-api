@@ -1,6 +1,22 @@
 {
+  "automerge": true,
+  "timezone": "Asia/Tokyo",
+  "schedule": [
+    "after 10am every weekday",
+    "before 7pm every weekday",
+    "every weekend"
+  ],
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
-  }
+  },
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "matchPackagePatterns": ["lint", "prettier"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
+    }
+  ]
 }
