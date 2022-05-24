@@ -1,4 +1,4 @@
-import { Either, left, right } from 'fp-ts/Either';
+import {Either, isLeft, left, right} from 'fp-ts/Either';
 import { HTTPError } from 'ky';
 import { User } from '../domain/user/entity';
 import { apiGet, apiPut } from '../external/api';
@@ -15,10 +15,13 @@ const createUserRepository: CreateUserRepository = () => ({
     console.log(cLog());
 
     try {
-      const response = await apiGet(`users/99`, token, {
+      const result = await apiGet<User>(`users/${id}`, token, {
         headers: { abc: 'def' },
       });
 
+      if (isLeft(result)) {
+
+      }
       if (!response.ok) {
         return left(
           createErrorLog(`${fp}#${fn}`, id, {
@@ -70,11 +73,30 @@ const createUserRepository: CreateUserRepository = () => ({
     return users;
   },
 
-  updateUser: async (token: string, user: User): Promise<User> => {
+  updateUser: async (
+    token: string,
+    user: User,
+  ): Promise<Either<Alert, User>> => {
     const fn = 'updateUser';
-    console.log(createConsoleLog(fp, fn)('PASS', 'parameter.user:', user));
+    const cLog = createConsoleLog(fp, fn);
+    console.log(cLog('PASS', 'parameter.user:', user));
 
-    const res = await apiPut<User>(`users/${user.id}`, token, { json: user });
+    try {
+      const response = await apiPut<User>(`users/${user.id}`, token, {
+        json: user,
+      });
+      if (!response.ok) {
+        return left(
+          createErrorLog(`${fp}#${fn}`, id, {
+            kind: 'ApiError',
+            message: 'error occurred',
+            status: { code: response.status, text: response.statusText },
+          }),
+        );
+      }
+    } catch (error: any) {
+      console.log(cLog('api.response.error:', error));
+    }
 
     return res;
   },

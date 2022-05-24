@@ -1,8 +1,10 @@
-import ky, { Options } from 'ky';
+import ky, { HTTPError, Options } from 'ky';
 import { QueryClient } from 'react-query';
 import deepmerge from 'deepmerge';
+import {Either, left, right} from 'fp-ts/Either';
 import { API_URL } from '../app/config';
 import { createConsoleLog } from '../app/log';
+import { LogWhat } from '../types/log';
 
 /*
  * APIクライアント
@@ -31,19 +33,47 @@ export const apiClient = ky.create({
   },
 });
 
-export const apiGet = (url: string, token: string, options?: Options) =>
-  apiClient.get(
-    url,
-    deepmerge(
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+export async function apiGet<T>(
+  url: string,
+  token: string,
+  options?: Options,
+): Promise<Either<LogWhat, T>> {
+  try {
+    const response = await apiClient.get(
+      url,
+      deepmerge(
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         },
-      },
-      options || {},
-    ),
-  );
+        options || {},
+      ),
+    );
+
+    if (!response.ok) {
+      return left({
+        kind: 'ApiError',
+        message: 'error occurred',
+        status: { code: response.status, text: response.statusText },
+      } as LogWhat);
+    }
+
+    const t = (await response.json()) as T;
+
+    return right(t);
+  } catch (error: any) {
+    const httpErr = error as HTTPError;
+    const errRes = httpErr.response;
+
+    return left({
+      kind: 'ApiError',
+      message: httpErr.message,
+      status: { code: errRes.status, text: errRes.statusText },
+    } as LogWhat);
+  }
+}
 
 export function apiPut<T>(url: string, token: string, options?: Options) {
   return apiClient
