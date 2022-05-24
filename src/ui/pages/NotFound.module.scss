@@ -17,25 +17,22 @@
     font-family: 'Nunito Sans', sans-serif;
     font-size: 11rem;
     position:absolute;
+    top: 8%;
+}
+
+.first {
+    @extend .err;
     left: 20%;
-    top: 8%;
 }
 
-.far {
-    position: absolute;
-    font-size: 8.5rem;
-    left: 42%;
-    top: 15%;
-    color: #ffffff;
+.second {
+    @extend .err;
+    left: 44%;
 }
 
-.err2 {
-    color: #ffffff;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 11rem;
-    position:absolute;
+.third {
+    @extend .err;
     left: 68%;
-    top: 8%;
 }
 
 .msg {
