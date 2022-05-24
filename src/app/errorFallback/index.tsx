@@ -19,11 +19,17 @@ const ErrorFallback: React.FC<FallbackProps> = (props) => {
     <>
       <div className={styles.container}>
         <Alert severity="error" variant="outlined">
-          <div>{error.message}</div>
-          <div>{error.cause?.message}</div>
-          <div>
-            <Button variant="outlined" onClick={handleBackDueToError}>
-              BACK
+          <div className={styles.messageArea}>
+            <div>{error.message}</div>
+            <div>{error.cause?.message}</div>
+          </div>
+          <div className={styles.buttonArea}>
+            <Button
+              variant="outlined"
+              onClick={handleBackDueToError}
+              color="error"
+            >
+              HOME
             </Button>
           </div>
         </Alert>
