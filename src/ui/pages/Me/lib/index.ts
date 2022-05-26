@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { BaseSyntheticEvent, useMemo } from 'react';
 import { useMutation, useQuery } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { isLeft } from 'fp-ts/Either';
+import { Either, isLeft } from 'fp-ts/Either';
 import { toUser, UserInput, UserInputScheme } from '../model';
 import { Auth } from '../../../../domain/auth/entity';
 import signInUserAuthCacheState from '../../../../state/auth';
@@ -13,6 +13,7 @@ import { User } from '../../../../domain/user/entity';
 import separateZip from '../../../../domain/user/service';
 import updateMyInfo from '../../../../usecase/update-my-info';
 import { createConsoleLog } from '../../../../app/log';
+import type { Alert } from '../../../../types/alert';
 
 const fp = 'ui/pages/Me/lib/index.ts';
 
@@ -206,7 +207,7 @@ export const useEditMeSubmit = (userId: number) => {
   // オンメモリキャッシュから（サインイン時にセットした）トークンを取得
   const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
   const { token } = signInUserAuthCache;
-  const mutation = useMutation<User, unknown, User>((u: User) =>
+  const mutation = useMutation<Either<Alert, User>, unknown, User>((u: User) =>
     updateMyInfo(token, u),
   );
 
