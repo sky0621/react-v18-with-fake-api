@@ -198,7 +198,8 @@ export const useInputs = (user: User | undefined) => {
  */
 export const useEditMeSubmit = (userId: number) => {
   const fn = 'useEditMeSubmit';
-  console.log(createConsoleLog(fp, fn)());
+  const cLog = createConsoleLog(fp, fn);
+  console.log(cLog());
 
   // ユーザー通知アラートのオンオフ切り替え用
   //  const [alert, setAlert] = useState(null as Alert | null);
@@ -207,8 +208,12 @@ export const useEditMeSubmit = (userId: number) => {
   // オンメモリキャッシュから（サインイン時にセットした）トークンを取得
   const signInUserAuthCache = useRecoilValue<Auth>(signInUserAuthCacheState);
   const { token } = signInUserAuthCache;
-  const mutation = useMutation<Either<Alert, User>, unknown, User>((u: User) =>
-    updateMyInfo(token, u),
+  const mutation = useMutation<Either<Alert, User>, unknown, User>(
+    (u: User) => {
+      console.log(cLog('call updateMyInfo', u));
+
+      return updateMyInfo(token, u);
+    },
   );
 
   // ユーザー編集発火時処理
@@ -220,10 +225,9 @@ export const useEditMeSubmit = (userId: number) => {
 
     // ユーザー編集ユースケースをコール
     const res = mutation.mutate(toUser(userId, data));
-    console.log(createConsoleLog(fp, fn)(res));
+    console.log(cLog('mutate.result', res));
 
-    // FIXME:
-    //    if (isLeft(eAuth)) {
+    //    if (isLeft(res)) {
     //      setAlert(eAuth.left);
     //    }
   };

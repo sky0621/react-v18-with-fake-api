@@ -75,9 +75,13 @@ export async function apiGet<T>(
   }
 }
 
-export function apiPut<T>(url: string, token: string, options?: Options) {
-  return apiClient
-    .put(
+export async function apiPut<T>(
+  url: string,
+  token: string,
+  options?: Options,
+): Promise<Either<LogWhat, T>> {
+  try {
+    const response = await apiClient.put(
       url,
       deepmerge(
         {
@@ -88,8 +92,28 @@ export function apiPut<T>(url: string, token: string, options?: Options) {
         },
         options || {},
       ),
-    )
-    .json<T>();
+    );
+    if (!response.ok) {
+      return left({
+        kind: 'ApiError',
+        message: 'error occurred',
+        status: { code: response.status, text: response.statusText },
+      } as LogWhat);
+    }
+
+    const t = (await response.json()) as T;
+
+    return right(t);
+  } catch (error: any) {
+    const httpErr = error as HTTPError;
+    const errRes = httpErr.response;
+
+    return left({
+      kind: 'ApiError',
+      message: httpErr.message,
+      status: { code: errRes.status, text: errRes.statusText },
+    } as LogWhat);
+  }
 }
 
 /*

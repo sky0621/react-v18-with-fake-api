@@ -44,24 +44,14 @@ const createUserRepository: CreateUserRepository = () => ({
     const cLog = createConsoleLog(fp, fn);
     console.log(cLog('PASS', 'parameter.user:', user));
 
-    try {
-      const response = await apiPut<User>(`users/${user.id}`, token, {
-        json: user,
-      });
-      if (!response.ok) {
-        return left(
-          createErrorLog(`${fp}#${fn}`, id, {
-            kind: 'ApiError',
-            message: 'error occurred',
-            status: { code: response.status, text: response.statusText },
-          }),
-        );
-      }
-    } catch (error: any) {
-      console.log(cLog('api.response.error:', error));
+    const result = await apiPut<User>(`users/${user.id}`, token, {
+      json: user,
+    });
+    if (isLeft(result)) {
+      return left(createErrorLog(`${fp}#${fn}`, '-', result.left));
     }
 
-    return res;
+    return right(result.right);
   },
 });
 
