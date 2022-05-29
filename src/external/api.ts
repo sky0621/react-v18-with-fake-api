@@ -4,7 +4,7 @@ import deepmerge from 'deepmerge';
 import { Either, left, right } from 'fp-ts/Either';
 import { API_URL } from '../app/config';
 import { createConsoleLog } from '../app/log';
-import { LogWhat } from '../types/log';
+import type { LogWhat } from '../types/log';
 
 /*
  * APIクライアント
