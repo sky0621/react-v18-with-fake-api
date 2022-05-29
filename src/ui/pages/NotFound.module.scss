@@ -1,55 +1,58 @@
 .container {
-    width: 100%;
-    height: 100%;
-    background-color: #95c2de;
+  width: 100%;
+  height: 100%;
+  background-color: #95c2de;
 }
 
 .mainbox {
-    background-color: #95c2de;
-    margin: auto;
-    height: 600px;
-    width: 600px;
-    position: relative;
+  position: relative;
+  width: 600px;
+  height: 600px;
+  margin: auto;
+  background-color: #95c2de;
 }
 
 .err {
-    color: #ffffff;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 11rem;
-    position:absolute;
-    top: 8%;
+  position: absolute;
+  top: 8%;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 11rem;
+  color: #fff;
 }
 
 .first {
-    @extend .err;
-    left: 20%;
+  @extend .err;
+
+  left: 20%;
 }
 
 .second {
-    @extend .err;
-    left: 44%;
+  @extend .err;
+
+  left: 44%;
 }
 
 .third {
-    @extend .err;
-    left: 68%;
+  @extend .err;
+
+  left: 68%;
 }
 
 .msg {
-    text-align: center;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 1.6rem;
-    position:absolute;
-    left: 16%;
-    top: 45%;
-    width: 75%;
+  position: absolute;
+  top: 45%;
+  left: 16%;
+  width: 75%;
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 1.6rem;
+  text-align: center;
 }
 
 a {
-    text-decoration: none;
-    color: white;
+  color: white;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
