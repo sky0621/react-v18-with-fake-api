@@ -100,7 +100,7 @@
     "scaffdog": "1.2.0",
     "stylelint": "14.9.1",
     "stylelint-config-recess-order": "3.0.0",
-    "stylelint-config-standard": "25.0.0",
+    "stylelint-config-standard": "26.0.0",
     "stylelint-order": "5.0.0",
     "typesync": "0.9.1"
   }
