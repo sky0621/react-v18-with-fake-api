@@ -57,7 +57,7 @@
     "compose-function": "3.0.3",
     "deepmerge": "4.2.2",
     "dotenv": "16.0.3",
-    "fp-ts": "2.12.3",
+    "fp-ts": "2.13.1",
     "jssha": "3.3.0",
     "ky": "0.31.4",
     "node-sass": "7.0.3",
