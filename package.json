@@ -78,7 +78,7 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
-    "@types/compose-function": "0.0.30",
+    "@types/compose-function": "0.0.33",
     "@types/loadable__component": "5.13.4",
     "@types/node-sass": "4.11.3",
     "@types/prettier": "2.7.3",
