@@ -46,7 +46,7 @@
     "@mui/icons-material": "5.14.19",
     "@mui/material": "5.14.19",
     "@mui/styled-engine-sc": "5.14.12",
-    "@mui/x-data-grid": "5.17.26",
+    "@mui/x-data-grid": "6.19.4",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "14.4.3",
