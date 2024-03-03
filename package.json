@@ -79,7 +79,7 @@
   },
   "devDependencies": {
     "@types/compose-function": "0.0.30",
-    "@types/loadable__component": "5.13.4",
+    "@types/loadable__component": "5.13.9",
     "@types/node-sass": "4.11.3",
     "@types/prettier": "2.7.3",
     "@types/react-redux": "7.1.24",
