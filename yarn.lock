@@ -7733,10 +7733,10 @@ jsonpointer@^5.0.0:
   resolved "https://registry.yarnpkg.com/jsonpointer/-/jsonpointer-5.0.0.tgz#f802669a524ec4805fa7389eadbc9921d5dc8072"
   integrity sha512-PNYZIdMjVIvVgDSYKTT63Y+KZ6IZvGRNNWcxwD+GNnUz1MKPfv30J8ueCjdwcN0nDx2SlshgyB7Oy0epAzVRRg==
 
-jssha@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/jssha/-/jssha-3.3.0.tgz#44b5531bcf55a12f4a388476c647a9a1cca92839"
-  integrity sha512-w9OtT4ALL+fbbwG3gw7erAO0jvS5nfvrukGPMWIAoea359B26ALXGpzy4YJSp9yGnpUvuvOw1nSjSoHDfWSr1w==
+jssha@3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/jssha/-/jssha-3.3.3.tgz#39796da3aa432ec718520faaa976f607d8040d2a"
+  integrity sha512-skZBbG6E/w6L9++oenmL01B/cKANNb4xUr5LZii6tLNdcwt09ASie7T65VJ4SL0AmNGflF483X8+Gv4dJPGCxg==
 
 "jsx-ast-utils@^2.4.1 || ^3.0.0", jsx-ast-utils@^3.2.1, jsx-ast-utils@^3.3.2:
   version "3.3.3"
